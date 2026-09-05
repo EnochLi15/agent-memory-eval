@@ -25,7 +25,9 @@ export function memops(directory:string,filesLimit=0):Sample[]{
     const d=JSON.parse(readFileSync(join(directory,name),'utf8')) as Obj;
     return {sample_id:name.replace('.json',''),group_id:name.split('_')[0]!,benchmark:'memops',
       sessions:(d.conversations as Obj[]).map((s,i)=>({session_id:`segment-${s.segment_index??i}`,messages:(s.dialogue as Obj[]).map((m,j)=>({role:String(m.role),content:`${j===0?'[Session time: synthetic ordering only; use dates stated by speakers]\n':''}${String(m.content)}`,timestamp:new Date(Date.UTC(2025,0,1)+i*86400000+j*1000).toISOString()}))})),
-      questions:(d.answer as Obj[]).map((q,i)=>({qid:`${name}#${q.question_pair_id??i}`,question:String(q.question),gold_answer:q.expected_answer??'',gold_rubric:q.judge_rubric??{},options:q.options??q.candidate_options,category:`${d.operation_type}/${q.evaluation_type??'unknown'}`,gold_evidence:[]}))
+      // Pair IDs intentionally repeat across evaluation settings in upstream.
+      // Preserve each actual question as a distinct scored item.
+      questions:(d.answer as Obj[]).map((q,i)=>({qid:`${name}#${q.question_pair_id??'question'}#${q.evaluation_setting??'unspecified'}#${i}`,question:String(q.question),gold_answer:q.expected_answer??'',gold_rubric:q.judge_rubric??{},options:q.options??q.candidate_options,category:`${d.operation_type}/${q.evaluation_type??'unknown'}`,gold_evidence:[]}))
     };
   });
 }

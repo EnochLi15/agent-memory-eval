@@ -7,10 +7,12 @@ import random
 
 root = pathlib.Path(__file__).resolve().parents[1]
 seed = 20260905
-manifest = {'version':'group-disjoint-v1','seed':seed,'policy':'20% groups dev; test questions stratified round-robin by category and sample; entire dialogue retained','datasets':{}}
+manifest = {'version':'group-disjoint-v2-unique-question-instances','seed':seed,'policy':'20% groups dev; test questions stratified round-robin by category and sample; entire dialogue retained; pair IDs distinguished by evaluation setting and ordinal','datasets':{}}
 for benchmark in ['locomo','memops']:
     path=root/'.data'/f'{benchmark}-normalized.json'
     samples=json.loads(path.read_text())
+    ids=[q['qid'] for s in samples for q in s['questions']]
+    assert len(ids)==len(set(ids)), f'{benchmark}: duplicate question IDs'
     groups=sorted(set(s['group_id'] for s in samples),key=lambda x:hashlib.sha256(f'{seed}:{x}'.encode()).hexdigest())
     devgroups=set(groups[:max(1,len(groups)//5)])
     selected={}
