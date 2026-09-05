@@ -1,0 +1,40 @@
+{
+  "repository": "https://github.com/mem-eval-suite/LoCoMo_refined",
+  "commit": "887091190789e8d6760e70b9edd696539923dc4f",
+  "files": {
+    "llm_judge.py": "a24d3480e003d985175b1889d6de208585fa694cdb1f02a3739f3cda30a9bb2a",
+    "llm_judge_runtime.py": "6fa81ca9b0347293f81666b794788b18e70018dadb5793895a8f0e53437d5790"
+  },
+  "judge_script_modifications": [],
+  "adapter": "maps enable_thinking=false to Ollama native think=false; prompt messages unchanged",
+  "local_model": "qwen3:14b",
+  "quantization": "Q4_K_M",
+  "context": 8192,
+  "max_output": 512,
+  "local_model_metadata": [
+    {
+      "name": "qwen3:14b",
+      "model": "qwen3:14b",
+      "modified_at": "2026-09-05T13:05:11.761292895+08:00",
+      "size": 9276198565,
+      "digest": "bdbd181c33f2ed1b31c972991882db3cf4d192569092138a7d29e973cd9debe8",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen3",
+        "families": [
+          "qwen3"
+        ],
+        "parameter_size": "14.8B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 40960,
+        "embedding_length": 5120
+      },
+      "capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ]
+    }
+  ]
+}
