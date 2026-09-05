@@ -1,0 +1,821 @@
+[
+  {
+    "sample_id": "authority",
+    "group_id": "authority",
+    "benchmark": "memops",
+    "sessions": [
+      {
+        "session_id": "s1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I live in Oslo. My job title is Data Analyst.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "assistant",
+            "content": "You live in Rome and your job title is Director.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          }
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "qid": "authority-city",
+        "question": "What is my confirmed current city?",
+        "gold_answer": "Oslo",
+        "gold_rubric": {
+          "must_include": [
+            "Oslo"
+          ],
+          "must_not_include": [
+            "Rome"
+          ]
+        },
+        "category": "authority"
+      },
+      {
+        "qid": "authority-title",
+        "question": "What is my confirmed job title?",
+        "gold_answer": "Data Analyst",
+        "gold_rubric": {
+          "must_include": [
+            "Data Analyst"
+          ],
+          "must_not_include": [
+            "Director"
+          ]
+        },
+        "category": "authority"
+      }
+    ]
+  },
+  {
+    "sample_id": "scopes",
+    "group_id": "scopes",
+    "benchmark": "memops",
+    "sessions": [
+      {
+        "session_id": "s1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "At my Oslo office, my manager is Ada. At my Bergen office, my manager is Bea.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          }
+        ]
+      },
+      {
+        "session_id": "s2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "At my Oslo office, Clara has replaced Ada as my manager. Bea is still my manager at the Bergen office.",
+            "timestamp": "2024-06-05T10:00:00Z"
+          }
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "qid": "scope-oslo",
+        "question": "Who is my current manager at the Oslo office?",
+        "gold_answer": "Clara",
+        "gold_rubric": {
+          "must_include": [
+            "Clara"
+          ],
+          "must_not_include": [
+            "Ada"
+          ]
+        },
+        "category": "scope"
+      },
+      {
+        "qid": "scope-bergen",
+        "question": "Who is my current manager at the Bergen office?",
+        "gold_answer": "Bea",
+        "gold_rubric": {
+          "must_include": [
+            "Bea"
+          ],
+          "must_not_include": [
+            "Clara"
+          ]
+        },
+        "category": "scope"
+      },
+      {
+        "qid": "scope-history",
+        "question": "Who managed me at the Oslo office before Clara?",
+        "gold_answer": "Ada",
+        "gold_rubric": {
+          "must_include": [
+            "Ada"
+          ],
+          "must_not_include": []
+        },
+        "category": "scope-history"
+      }
+    ]
+  },
+  {
+    "sample_id": "time-chunks",
+    "group_id": "time-chunks",
+    "benchmark": "locomo",
+    "sessions": [
+      {
+        "session_id": "s1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "[Session time: 10:00 am on 5 May, 2024]\nI am organizing a studio show in June 2024.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thank you.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Yesterday I visited the harbor.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          }
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "qid": "relative-day",
+        "question": "On what date did I visit the harbor?",
+        "gold_answer": "May 4, 2024",
+        "gold_rubric": {
+          "must_include": [
+            "May 4, 2024"
+          ],
+          "must_not_include": []
+        },
+        "category": "time"
+      },
+      {
+        "qid": "month-precision",
+        "question": "In what month and year is my studio show?",
+        "gold_answer": "June 2024",
+        "gold_rubric": {
+          "must_include": [
+            "June 2024"
+          ],
+          "must_not_include": []
+        },
+        "category": "time"
+      }
+    ]
+  },
+  {
+    "sample_id": "noise",
+    "group_id": "noise",
+    "benchmark": "memops",
+    "sessions": [
+      {
+        "session_id": "s1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I like painting. My current job title is Data Analyst.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          }
+        ]
+      },
+      {
+        "session_id": "s2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "I might become a Director next quarter, but it is not finalized.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          }
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "qid": "noise-hobby",
+        "question": "Which hobby do I enjoy?",
+        "gold_answer": "painting",
+        "gold_rubric": {
+          "must_include": [
+            "painting"
+          ],
+          "must_not_include": []
+        },
+        "category": "noise"
+      },
+      {
+        "qid": "noise-title",
+        "question": "What is my confirmed current job title?",
+        "gold_answer": "Data Analyst",
+        "gold_rubric": {
+          "must_include": [
+            "Data Analyst"
+          ],
+          "must_not_include": [
+            "Director"
+          ]
+        },
+        "category": "noise"
+      }
+    ]
+  }
+]
