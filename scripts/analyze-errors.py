@@ -19,7 +19,14 @@ for qid,j in judgments.items():
  elif coverage and not coverage['all']:label='partial_gold_source_ids_recalled'
  elif coverage:label='all_gold_source_ids_recalled_but_wrong'
  else:label='wrong_without_source_id_diagnostic'
- inventory.append({'qid':qid,'sample_id':j['sample_id'],'category':j['category'],'observed_bucket':label,'status':j['status'],'source_coverage':coverage,'evidence_count':len(r['memories']) if r else None,'answer':answer.get('answer') if answer else None,'judge_raw':j.get('raw'),'error':j.get('error')})
+ if j['status']=='service_error':stage='ingestion'
+ elif j['status']=='judge_error':stage='judge'
+ elif j['status']=='pipeline_error':stage='answer_generation' if r else 'search_or_retrieval_processing'
+ else:stage='completed_answer_judgment'
+ inventory.append({'qid':qid,'sample_id':j['sample_id'],'category':j['category'],'observed_bucket':label,'observed_stage':stage,'status':j['status'],'source_coverage':coverage,'evidence_count':len(r['memories']) if r else None,'answer':answer.get('answer') if answer else None,'judge_raw':j.get('raw'),'error':j.get('error')})
 output=directory/'error-analysis';output.mkdir(exist_ok=True)
 result={'run_id':a.run_id,'planned':manifest['planned_questions'],'wrong_judged':sum(j['status']=='judged' and not j['correct'] for j in judgments.values()),'unjudged':manifest['planned_questions']-sum(j['status']=='judged' for j in judgments.values()),'observed_buckets':dict(collections.Counter(r['observed_bucket'] for r in inventory)),'scope':'Observed pipeline status and original source-ID recall only. These labels do not establish semantic support, causal blame, or Judge correctness. No model or service calls.','input_hashes':{n:hashlib.sha256((directory/n).read_bytes()).hexdigest() for n in ['manifest.json','judgments.jsonl','retrievals.jsonl','predictions.jsonl'] if (directory/n).exists()}}
+result['observed_stages']=dict(collections.Counter(r['observed_stage'] for r in inventory))
+result['stage_scope']='Stage inferred from terminal status and persisted retrieval presence; search_or_retrieval_processing includes HTTP, response validation and local retrieval processing, not necessarily a service algorithm failure.'
+result['analysis_script_sha256']=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest()
 (output/'summary.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');(output/'questions.jsonl').write_text(''.join(json.dumps(r,ensure_ascii=False)+'\n' for r in inventory));print(json.dumps(result,ensure_ascii=False))
