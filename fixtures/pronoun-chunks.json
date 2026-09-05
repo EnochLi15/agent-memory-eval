@@ -1,0 +1,132 @@
+[
+  {
+    "sample_id": "pronoun-chunks",
+    "group_id": "pronoun-chunks",
+    "benchmark": "locomo",
+    "sessions": [
+      {
+        "session_id": "s1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "[Session time: 10:00 am on 5 May, 2024]\nI have a sister named Maya.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "Hello. Thanks.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          },
+          {
+            "role": "user",
+            "content": "She started a pottery class yesterday.",
+            "timestamp": "2024-05-05T10:00:00Z"
+          }
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "qid": "pronoun-actor",
+        "question": "Who started the pottery class?",
+        "gold_answer": "Maya",
+        "gold_rubric": {
+          "must_include": [
+            "Maya"
+          ]
+        },
+        "category": "cross-chunk-reference"
+      }
+    ]
+  }
+]
