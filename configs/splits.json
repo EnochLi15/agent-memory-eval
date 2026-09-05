@@ -4,7 +4,7 @@
   "policy": "20% groups dev; test questions stratified round-robin by category and sample; entire dialogue retained",
   "datasets": {
     "locomo": {
-      "source_sha256": "3e89f9550d72a33aa179b416e383f5d9e0679149862305aa2a55f7448b62f82f",
+      "source_sha256": "aec0777e4d9eed8166c3abd967d55775552590a930cd646ba34616de09662733",
       "dev": {
         "questions": 30,
         "samples": 2,
@@ -12,7 +12,7 @@
           "conv-44",
           "conv-48"
         ],
-        "sha256": "ce5f55eb9bccc88b97afe8b15b5e50ae172bb0e70c1ba8890e3917541235199c",
+        "sha256": "58e28860b96283af9050e34629c40cc0545501f26d2b73518622ee573a544f07",
         "qids": [
           "conv-44#q0019",
           "conv-44#q0008",
@@ -59,7 +59,7 @@
           "conv-49",
           "conv-50"
         ],
-        "sha256": "85d0dc28d25353fca3cddee6a0d022df07afeea0327d5472674d2a5479b97b74",
+        "sha256": "111784f360e5f428304ce3f156f0afe1fce0e9e2b9cc7f988878ab68de0e162d",
         "qids": [
           "conv-42#q0047",
           "conv-42#q0041",
@@ -565,7 +565,7 @@
       }
     },
     "memops": {
-      "source_sha256": "89d0f3361418ba66c3c15b557150eb3206d8b2308feb4fa91b0409cccf96275f",
+      "source_sha256": "0d11e59460bf654ad95c09633d4d10e7aec7c9eae1a669dfa94541f14a9b7ed3",
       "dev": {
         "questions": 30,
         "samples": 5,
@@ -574,7 +574,7 @@
           "E10",
           "F07"
         ],
-        "sha256": "ae0338fad305f394b3c43b80552009e2a72cc5801321b5953ba5dacef34eee74",
+        "sha256": "0b6dc48a037f4ca9a9a55b9556ed9bd911ad657f264aa5c4e23ea3639a169206",
         "qids": [
           "E10_reflect.json#p4_candidate_disambiguation",
           "E10_reflect.json#p5_operation_application",
@@ -656,7 +656,7 @@
           "F15",
           "F17"
         ],
-        "sha256": "8e497fb0b9e06affbef54c9eb3beddc6d2f220a0f7ce2a097947ec409207e1c4",
+        "sha256": "bc645974e563c7e15928d1c5c04b33cc02e7c03681b85dc49115c0a25b6ff28c",
         "qids": [
           "C01_forget.json#p4_candidate_disambiguation",
           "C01_forget.json#p5_operation_application",
