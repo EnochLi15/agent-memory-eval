@@ -20,11 +20,14 @@ for directory in directories:
  item['input_hashes']={name:hashlib.sha256((directory/name).read_bytes()).hexdigest() for name in ['manifest.json','metrics.json','judgments.jsonl','retrievals.jsonl'] if (directory/name).exists()}
  table.append(item);runs[(profile,benchmark)]=(manifest,judgments)
 pairs=[]
-for (profile,benchmark),(manifest,judgments) in runs.items():
- if profile=='U3' or ('U3',benchmark) not in runs:continue
- target,target_rows=runs[('U3',benchmark)];keys=['dataset_sha256','answer_model','judge_model','judge_kind','answer_prompt_sha256','rubric_prompt_sha256','top_k','chunk_messages','chunk_words']
+edges={(profile,'U3',benchmark) for profile,benchmark in runs if profile!='U3' and ('U3',benchmark) in runs}
+sequence=[('U0','U1'),('B0','B1'),('B1','B2'),('B2','B3'),('B3','B4'),('B4','B5'),('B5','B6')]
+edges|={(before,after,benchmark) for before,after in sequence for benchmark in ['locomo','memops'] if (before,benchmark) in runs and (after,benchmark) in runs}
+for profile,candidate,benchmark in sorted(edges):
+ manifest,judgments=runs[(profile,benchmark)]
+ target,target_rows=runs[(candidate,benchmark)];keys=['dataset_sha256','planned_questions','samples','answer_model','answer_inference','answer_base','judge_model','judge_kind','judge_base','answer_prompt_sha256','rubric_prompt_sha256','top_k','chunk_messages','chunk_words']
  mismatch=[key for key in keys if target.get(key)!=manifest.get(key)]
- if mismatch:pairs.append({'profile':profile,'benchmark':benchmark,'comparison':'refused','mismatched_fields':mismatch});continue
+ if mismatch:pairs.append({'baseline':profile,'candidate':candidate,'benchmark':benchmark,'comparison':'refused','mismatched_fields':mismatch});continue
  common=set(judgments)&set(target_rows);changes=[];samples=collections.defaultdict(list)
  for qid in sorted(common):
   before=judgments[qid];after=target_rows[qid];old=int(before.get('correct',False) and before['status']=='judged');new=int(after.get('correct',False) and after['status']=='judged');samples[after['sample_id']].append(new-old)
@@ -34,9 +37,10 @@ for (profile,benchmark),(manifest,judgments) in runs.items():
   draw=[rng.choice(groups) for _ in groups];values=[d for group in draw for d in group];bootstrap.append(sum(values)/len(values) if values else 0)
  joint=[q for q in common if judgments[q]['status']=='judged' and target_rows[q]['status']=='judged']
  joint_before=sum(bool(judgments[q]['correct']) for q in joint);joint_after=sum(bool(target_rows[q]['correct']) for q in joint)
- pairs.append({'baseline':profile,'candidate':'U3','benchmark':benchmark,'paired_questions':len(common),'jointly_judged':len(joint),'joint_diagnostic':{'baseline_correct':joint_before,'candidate_correct':joint_after,'delta':(joint_after-joint_before)/len(joint) if joint else None,'scope':'Conditional subset only; excluded failures may bias this diagnostic.'},'wrong_to_correct':sum(x['direction']=='wrong_to_correct' for x in changes),'correct_to_wrong':sum(x['direction']=='correct_to_wrong' for x in changes),'delta_bootstrap_95':[quantile(bootstrap,.025),quantile(bootstrap,.975)],'changes':changes,'scope':'errors count as non-correct in this planned-denominator comparison; jointly_judged exposes infrastructure imbalance'})
+ kind='same_candidate_repeat' if (profile,candidate)==('B6','U3') else 'refactor_quality_repeat' if (profile,candidate)==('U0','U1') else 'component_sequence' if (profile,candidate) in sequence else 'full_candidate_comparison'
+ pairs.append({'baseline':profile,'candidate':candidate,'benchmark':benchmark,'comparison_kind':kind,'paired_questions':len(common),'jointly_judged':len(joint),'joint_diagnostic':{'baseline_correct':joint_before,'candidate_correct':joint_after,'delta':(joint_after-joint_before)/len(joint) if joint else None,'scope':'Conditional subset only; excluded failures may bias this diagnostic.'},'wrong_to_correct':sum(x['direction']=='wrong_to_correct' for x in changes),'correct_to_wrong':sum(x['direction']=='correct_to_wrong' for x in changes),'delta_bootstrap_95':[quantile(bootstrap,.025),quantile(bootstrap,.975)],'changes':changes,'scope':'errors count as non-correct in this planned-denominator comparison; jointly_judged exposes infrastructure imbalance'})
 result={'campaign':a.campaign,'included_campaigns':a.include_campaign,'comparison_script_sha256':hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),'runs':table,'paired_comparisons':pairs};(out/'comparison.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
 lines=['# 开发集配对对照','',f'实验批次：`{a.campaign}`。以下为本地配置的代理结果，不是正式平台成绩。','', '| 配置 | 基准 | 正确/计划 | 已判定 | search p95 ms |','|---|---|---:|---:|---:|']
 for item in table:lines.append(f"| {item['profile']} | {item['benchmark']} | {item['correct']}/{item['planned']} | {item['judged']} | {item['search_ms']['p95']} |")
-lines+=['','配对变化、按 sample 重采样的区间、服务/评测版本、错误类型及证据成本见 `comparison.json`。基础设施失败保留在计划分母中；共同完成判分的问题数量用于辨别运行失败与算法差异。两个 LoCoMo 开发组不足以支持稳定的泛化结论。','']
+lines+=['','配对变化、按 sample 重采样的区间、服务/评测版本、错误类型及证据成本见 `comparison.json`。包含相对U3的比较及B0→B1→…→B6的逐阶段配对。B6与U3是相同完整候选配置的重复运行，不能把两者差异当作组件收益。基础设施失败保留在计划分母中；共同完成判分的问题数量用于辨别运行失败与算法差异。两个 LoCoMo 开发组不足以支持稳定的泛化结论。','']
 (out/'comparison.md').write_text('\n'.join(lines));print(json.dumps({'completed_runs':len(table),'paired_comparisons':len(pairs)}))
