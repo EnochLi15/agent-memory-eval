@@ -16,7 +16,7 @@ await Promise.all(Array.from({length:3},async()=>{while(cursor<tasks.length){con
  try{const q=questions.get(j.qid);if(!q)throw Error('Unknown question');const r=retrievals.get(j.qid);const memories=r?.memories??[];
  const raw=await completion(process.env.MEMORY_LLM_BASE_URL,process.env.MEMORY_LLM_API_KEY,model,[{role:'system',content:prompt},{role:'user',content:JSON.stringify({question:q.question,reference:q.gold_answer,rubric:q.gold_rubric,memories,answer:predictions.get(j.qid)?.answer,judge:j.raw})}],true);const parsed=JSON.parse(raw);
  if(!categories.includes(parsed.primary)||typeof parsed.confidence!=='number'||parsed.confidence<0||parsed.confidence>1||!Array.isArray(parsed.evidence_quotes)||parsed.evidence_quotes.some(x=>typeof x!=='string'||!memories.some(m=>m.content.includes(x))))throw Error('Invalid category/confidence or fabricated evidence quote');
- result={qid:j.qid,status:'hypothesis',...parsed};
+ result={qid:j.qid,status:'hypothesis',primary:parsed.primary,secondary:Array.isArray(parsed.secondary)?parsed.secondary.filter(x=>categories.includes(x)):[],confidence:parsed.confidence,reason:String(parsed.reason??''),evidence_quotes:parsed.evidence_quotes};
  }catch(error){result={qid:j.qid,status:'diagnostic_error',error:String(error)};}
  results.push(result);appendFileSync(join(output,'questions.jsonl'),JSON.stringify(result)+'\n');console.log(JSON.stringify({completed:results.length,planned:tasks.length,status:result.status}));
 }}));
