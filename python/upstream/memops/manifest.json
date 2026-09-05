@@ -1,0 +1,15 @@
+{
+  "repository": "https://github.com/MemTensor/MemOps",
+  "commit": "312af65e2c7b6d1b70f062ffa8b4cde32aaf6f35",
+  "files": {
+    "5.5-evaluate_operation_metrics.py": {
+      "local": "operation_metrics.py",
+      "sha256": "17c24362c174239eb7ef5e543bc651afed60ae445a4becd49acf24f6d3c646f0"
+    },
+    "LICENSE": {
+      "local": "LICENSE",
+      "sha256": "44321bf0b4b4e0fa2ea67a619db296eab0e38889e70580ef2cfc255fbf925e82"
+    }
+  },
+  "modifications": []
+}
