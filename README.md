@@ -1,12 +1,14 @@
 # Independent Agent Memory Evaluator
 
-Node 24.18.0、Python 3。`npm ci && npm run build && npm test` 执行8项Node测试和2项仅用Python标准库的统计回归。只通过 `/add`、`/search`、`/health` 访问被测服务；不依赖 service 源码或数据库。权威静态 JSON Schema、OpenAPI 与 SHA-256 位于 `contracts/`。
+Node 24.18.0、Python 3。`npm ci && npm run build && npm test` 执行Node与Python回归测试。只通过 `/add`、`/search`、`/health` 访问被测服务；不依赖 service 源码或数据库。权威静态 JSON Schema、OpenAPI 与 SHA-256 位于 `contracts/`。
 
 `node dist/cli.js prepare` 适配 LoCoMo_refined、MemOps 和赛题输入；`run` 执行灌入、检索、Answer、Judge；`report` 聚合实验产物。模型凭据只从环境读取。`scripts/select-data.py` 生成按背景分组、开发与保留集互斥的固定划分。
 
 LoCoMo refined Judge 原脚本固定拷贝在 `python/upstream/`，桥接器不改判分 prompt。Python 依赖见 `python/requirements.txt`。本地量化 Qwen3-14B 可用独立 `scripts/ollama-judge-server.py` 将官方请求的关闭 thinking 选项映射到 Ollama 原生接口；该组件只属于评测器，不添加服务 API。量化权重、上下文长度及本地转换均须记录，不能冒充正式未量化平台成绩。
 
 默认代理评测使用配置的 Answer/Judge。`--mode competition-reproduction` 仅在平台配置明确确认后启用。缺少官方 500+500 选择器、Answer 配置和 MemOps 二值映射时，公开集复现一律单独标注。Judge 失败算未判定；报告保留完整计划分母。已有运行只能显式 `--resume`，改变关键配置不能接着写入同一结果。
+
+`python/prepare_judge_calibration.py` 接收 `--primary`、`--predictions`、`--upstream` JSONL和新的 `--output` 目录，核对两套Judge使用完全相同的保存答案，选取全部分歧及六类题型中正/负判定一致的分层样本。`blind.jsonl` 不含原判分，原判分保存在独立文件；`reviews-pending.jsonl` 全部为空待复核，不能当作人工标签。它只生成校准材料，不修改原分数、不调用记忆服务、不把一致判定当作真值。
 
 ## 数据与运行命令
 
