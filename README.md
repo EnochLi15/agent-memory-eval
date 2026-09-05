@@ -18,3 +18,7 @@ node --env-file=../.env dist/cli.js run --data .data/memops-dev.json --run-id de
 ```
 
 下载器固定上游 commit，并逐一验证405个原始文件的 SHA-256。`configs/splits.json` 保留所有选择 qid 和背景分组。开发/保留集包含完整输入对话，不筛除干扰内容。LoCoMo 无时区日期按 UTC 转换，并保留原始 Session time；MemOps 的外层 timestamp 是保持 segment/turn 顺序的合成值，原文日期不变。
+
+## 上游许可与署名
+
+LoCoMo-Refined是Snap Research LoCoMo的修改版本；本仓库保留固定提交`887091190789e8d6760e70b9edd696539923dc4f`的[CC BY-NC 4.0许可](python/upstream/LICENSE.txt)及[原始署名说明](python/upstream/NOTICE)。两份文件与未修改Judge源码的SHA256均记入上游manifest。公开数据在本地仅进行了已记录的HTTP字段适配、说话人/caption保留、时间顺序转换与分组划分；本项目不把这些转换称为正式平台输入。MemOps固定源码及其MIT许可保存在`python/upstream/memops/`。
