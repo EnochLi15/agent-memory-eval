@@ -27,8 +27,9 @@ for (profile,benchmark),(manifest,judgments) in runs.items():
  rng=random.Random(20260905);groups=list(samples.values());bootstrap=[]
  for _ in range(1000):
   draw=[rng.choice(groups) for _ in groups];values=[d for group in draw for d in group];bootstrap.append(sum(values)/len(values) if values else 0)
- jointly_judged=sum(judgments[q]['status']=='judged' and target_rows[q]['status']=='judged' for q in common)
- pairs.append({'baseline':profile,'candidate':'U3','benchmark':benchmark,'paired_questions':len(common),'jointly_judged':jointly_judged,'wrong_to_correct':sum(x['direction']=='wrong_to_correct' for x in changes),'correct_to_wrong':sum(x['direction']=='correct_to_wrong' for x in changes),'delta_bootstrap_95':[quantile(bootstrap,.025),quantile(bootstrap,.975)],'changes':changes,'scope':'errors count as non-correct in this planned-denominator comparison; jointly_judged exposes infrastructure imbalance'})
+ joint=[q for q in common if judgments[q]['status']=='judged' and target_rows[q]['status']=='judged']
+ joint_before=sum(bool(judgments[q]['correct']) for q in joint);joint_after=sum(bool(target_rows[q]['correct']) for q in joint)
+ pairs.append({'baseline':profile,'candidate':'U3','benchmark':benchmark,'paired_questions':len(common),'jointly_judged':len(joint),'joint_diagnostic':{'baseline_correct':joint_before,'candidate_correct':joint_after,'delta':(joint_after-joint_before)/len(joint) if joint else None,'scope':'Conditional subset only; excluded failures may bias this diagnostic.'},'wrong_to_correct':sum(x['direction']=='wrong_to_correct' for x in changes),'correct_to_wrong':sum(x['direction']=='correct_to_wrong' for x in changes),'delta_bootstrap_95':[quantile(bootstrap,.025),quantile(bootstrap,.975)],'changes':changes,'scope':'errors count as non-correct in this planned-denominator comparison; jointly_judged exposes infrastructure imbalance'})
 result={'campaign':a.campaign,'runs':table,'paired_comparisons':pairs};(out/'comparison.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
 lines=['# 开发集配对对照','',f'实验批次：`{a.campaign}`。以下为本地配置的代理结果，不是正式平台成绩。','', '| 配置 | 基准 | 正确/计划 | 已判定 | search p95 ms |','|---|---|---:|---:|---:|']
 for item in table:lines.append(f"| {item['profile']} | {item['benchmark']} | {item['correct']}/{item['planned']} | {item['judged']} | {item['search_ms']['p95']} |")
