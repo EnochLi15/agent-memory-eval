@@ -1,0 +1,74 @@
+[
+  {
+    "sample_id": "long-dialogue",
+    "group_id": "long-dialogue",
+    "benchmark": "locomo",
+    "sessions": [
+      {
+        "session_id": "s1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "My manager is Clara. My access code is QC-9182. I live in Seattle.",
+            "timestamp": "2026-01-01T00:00:00Z"
+          }
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "qid": "long-dialogue-manager",
+        "question": "Who is my manager?",
+        "gold_answer": "Clara",
+        "category": "retained-fact"
+      },
+      {
+        "qid": "long-dialogue-city",
+        "question": "What is my current city?",
+        "gold_answer": "Seattle",
+        "category": "current-state"
+      }
+    ]
+  },
+  {
+    "sample_id": "operations",
+    "group_id": "operations",
+    "benchmark": "memops",
+    "sessions": [
+      {
+        "session_id": "s1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "My manager is Clara. My access code is QC-9182. I live in Seattle.",
+            "timestamp": "2026-01-01T00:00:00Z"
+          }
+        ]
+      },
+      {
+        "session_id": "s2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I now live in Portland. Forget my access code.",
+            "timestamp": "2026-02-01T00:00:00Z"
+          }
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "qid": "operations-manager",
+        "question": "Who is my manager?",
+        "gold_answer": "Clara",
+        "category": "retained-fact"
+      },
+      {
+        "qid": "operations-city",
+        "question": "What is my current city?",
+        "gold_answer": "Portland",
+        "category": "current-state"
+      }
+    ]
+  }
+]

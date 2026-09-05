@@ -1,6 +1,8 @@
+import {contract} from './contract.js';
 import {resolve} from 'node:path';import {locomo,memops,competition,saveDataset} from './adapters.js';import {run,report} from './runner.js';import type {EvalConfig} from './types.js';
 const args=process.argv.slice(2);const command=args.shift();const option=(name:string,fallback=''):string=>{const i=args.indexOf(`--${name}`);return i<0?fallback:args[i+1]??fallback;};
-if(command==='prepare'){
+if(command==='contract'){await contract(option('base-url','http://127.0.0.1:8088'));}
+else if(command==='prepare'){
   const kind=option('benchmark');let data;
   if(kind==='locomo')data=locomo(option('conversations'),option('questions'));
   else if(kind==='memops')data=memops(option('directory'),Number(option('files','0')));
