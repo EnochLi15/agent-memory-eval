@@ -1,6 +1,6 @@
 # Independent Agent Memory Evaluator
 
-Node 24.18.0。`npm ci && npm run build && npm test`。只通过 `/add`、`/search`、`/health` 访问被测服务；不依赖 service 源码或数据库。权威静态 JSON Schema、OpenAPI 与 SHA-256 位于 `contracts/`。
+Node 24.18.0、Python 3。`npm ci && npm run build && npm test` 执行8项Node测试和2项仅用Python标准库的统计回归。只通过 `/add`、`/search`、`/health` 访问被测服务；不依赖 service 源码或数据库。权威静态 JSON Schema、OpenAPI 与 SHA-256 位于 `contracts/`。
 
 `node dist/cli.js prepare` 适配 LoCoMo_refined、MemOps 和赛题输入；`run` 执行灌入、检索、Answer、Judge；`report` 聚合实验产物。模型凭据只从环境读取。`scripts/select-data.py` 生成按背景分组、开发与保留集互斥的固定划分。
 
