@@ -18,5 +18,6 @@ COPY contracts ./contracts
 COPY python ./python
 COPY configs ./configs
 COPY scripts ./scripts
+RUN mkdir -p /app/artifacts /app/.data && chown node:node /app/artifacts /app/.data
 USER node
 ENTRYPOINT ["node","dist/cli.js"]
