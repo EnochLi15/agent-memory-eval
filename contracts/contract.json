@@ -1,0 +1,138 @@
+{
+  "version": "1.0.0",
+  "schemas": {
+    "addRequest": {
+      "type": "object",
+      "required": [
+        "request_id",
+        "user_id",
+        "session_id",
+        "messages"
+      ],
+      "properties": {
+        "request_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "role",
+              "content",
+              "timestamp"
+            ],
+            "properties": {
+              "role": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      }
+    },
+    "addResponse": {
+      "type": "object",
+      "required": [
+        "success",
+        "request_id",
+        "user_id",
+        "session_id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "success": {
+          "const": true
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "session_id": {
+          "type": "string"
+        }
+      }
+    },
+    "searchRequest": {
+      "type": "object",
+      "required": [
+        "query",
+        "user_id",
+        "top_k"
+      ],
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "top_k": {
+          "type": "number",
+          "minimum": 0
+        },
+        "options": {
+          "type": "array",
+          "items": {}
+        }
+      }
+    },
+    "searchResponse": {
+      "type": "object",
+      "required": [
+        "data"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "content",
+              "score",
+              "created_at"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              },
+              "score": {
+                "type": "number"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "implementationExtensions": {
+    "top_k": "nonnegative numbers; floor before limiting to 100",
+    "errors": "400 invalid request,409 request_id conflict,503 unavailable"
+  }
+}

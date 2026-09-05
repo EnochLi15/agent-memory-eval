@@ -1,0 +1,203 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Agent Memory Competition",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/add": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/addResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/searchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/searchResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Ready"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "addRequest": {
+        "type": "object",
+        "required": [
+          "request_id",
+          "user_id",
+          "session_id",
+          "messages"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "session_id": {
+            "type": "string"
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "role",
+                "content",
+                "timestamp"
+              ],
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          }
+        }
+      },
+      "addResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "request_id",
+          "user_id",
+          "session_id"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "success": {
+            "const": true
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "session_id": {
+            "type": "string"
+          }
+        }
+      },
+      "searchRequest": {
+        "type": "object",
+        "required": [
+          "query",
+          "user_id",
+          "top_k"
+        ],
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "top_k": {
+            "type": "number",
+            "minimum": 0
+          },
+          "options": {
+            "type": "array",
+            "items": {}
+          }
+        }
+      },
+      "searchResponse": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "content",
+                "score",
+                "created_at"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "score": {
+                  "type": "number"
+                },
+                "created_at": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
