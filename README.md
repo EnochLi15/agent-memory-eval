@@ -24,3 +24,14 @@ node --env-file=../.env dist/cli.js run --data .data/memops-dev.json --run-id de
 ## 上游许可与署名
 
 LoCoMo-Refined是Snap Research LoCoMo的修改版本；本仓库保留固定提交`887091190789e8d6760e70b9edd696539923dc4f`的[CC BY-NC 4.0许可](python/upstream/LICENSE.txt)及[原始署名说明](python/upstream/NOTICE)。两份文件与未修改Judge源码的SHA256均记入上游manifest。公开数据在本地仅进行了已记录的HTTP字段适配、说话人/caption保留、时间顺序转换与分组划分；本项目不把这些转换称为正式平台输入。MemOps固定源码及其MIT许可保存在`python/upstream/memops/`。
+
+
+### Independent human calibration reports
+
+`python/report_human_calibration.py --packet PATH --reviews reviews.jsonl --reviewer-roster reviewers.jsonl --output NEW_DIRECTORY` validates the frozen blind/prior hashes, selection size and submitted human labels. It never calls a model or fills missing labels. Reports show primary/upstream false positives, false negatives and agreement by question type and original agreement/disagreement stratum. The disagreement-heavy packet does not estimate population judge accuracy.
+
+Review rows keep the packet's `qid`, `status` (`pending_independent_review`, `reviewed` or `uncertain`), `reviewer`, `reviewer_kind: "human"`, `correct` (boolean only for reviewed, otherwise null), `reason`, and optional `criteria`. Each criterion uses `criterion` (`reference`, `must_include:N`, `must_not_include:N`, or `harmful_extra:N`, zero-based), `verdict` (`satisfied`, `violated`, `uncertain`), `answer_quote` (exact saved-answer substring or empty for absence), and `reason`. Criteria are optional; provided criteria receive identity, quote and internal-consistency checks, not automatic semantic adjudication.
+
+The optional JSONL reviewer roster has `reviewer`, `reviewer_kind: "human"`, `independent_of_model_judging: true`, and a nonempty `attestation` supplied by that reviewer. Without an attestation, structurally valid submitted labels are counted as unconfirmed and excluded from confusion matrices. The tool records self-attestation, not authenticated human identity. Do not generate roster statements or human labels on a reviewer's behalf.
+
+All pending, missing, uncertain and unconfirmed reviews remain open. Even a complete packet reports `ready_for_calibration_review`, not benchmark completion. Outputs require a new directory and never overwrite the original packet, labels, prior verdicts or historical scores. With the current pending 199-row packet, the correct report contains zero binary human labels, zero comparisons and null agreement rates.
