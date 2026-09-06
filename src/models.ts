@@ -1,8 +1,9 @@
-export async function completion(base:string,key:string,model:string,messages:{role:string;content:string}[],json=false):Promise<string>{
+export async function completion(base:string,key:string,model:string,messages:{role:string;content:string}[],json=false,maxCompletionTokens=1800):Promise<string>{
+  if(!Number.isInteger(maxCompletionTokens)||maxCompletionTokens<1||maxCompletionTokens>16384)throw new Error('Invalid completion token budget');
   let last:unknown;
   for(let attempt=0;attempt<3;attempt++){
     try{
-      const r=await fetch(`${base.replace(/\/$/,'')}/chat/completions`,{method:'POST',headers:{Authorization:`Bearer ${key}`,'Content-Type':'application/json'},body:JSON.stringify({model,messages,max_completion_tokens:1800,stream:true,...(json?{response_format:{type:'json_object'}}:{})}),signal:AbortSignal.timeout(90000)});
+      const r=await fetch(`${base.replace(/\/$/,'')}/chat/completions`,{method:'POST',headers:{Authorization:`Bearer ${key}`,'Content-Type':'application/json'},body:JSON.stringify({model,messages,max_completion_tokens:maxCompletionTokens,stream:true,...(json?{response_format:{type:'json_object'}}:{})}),signal:AbortSignal.timeout(90000)});
       if(!r.ok){if(r.status===429||r.status>=500){last=new Error(`Model HTTP ${r.status}`);await new Promise(r=>setTimeout(r,1000*(attempt+1)));continue;}throw new Error(`Model HTTP ${r.status}`);}
       if(r.headers.get('content-type')?.includes('text/event-stream')){
         if(!r.body)throw new Error('Empty model stream');

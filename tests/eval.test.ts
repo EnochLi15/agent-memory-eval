@@ -23,3 +23,15 @@ test('transient add failure retries the identical request and records each attem
  try{const base=`http://127.0.0.1:${(srv.address() as any).port}`;const dataFile=join(dir,'data.json');writeFileSync(dataFile,JSON.stringify([{sample_id:'s',group_id:'s',benchmark:'synthetic',sessions:[{session_id:'session',messages:[{role:'user',content:'I like hiking.',timestamp:'2026-01-01T00:00:00Z'}]}],questions:[{qid:'q',question:'hobby?',gold_answer:'hiking',category:'test'}]}]));await run({baseUrl:base,runDir:join(dir,'run'),runId:'retry',dataFile,limit:0,concurrency:1,mode:'proxy',answerModel:'fixture',judgeModel:'fixture',llmBase:base,llmKey:'local',judgeBase:base,judgeKey:'local',judgeKind:'rubric',maxMessages:20,maxWords:2000,topK:100,resume:false});assert.equal(adds.length,2);assert.deepEqual(adds[0],adds[1]);const rows=readFileSync(join(dir,'run/ingest.jsonl'),'utf8').trim().split('\n').map(x=>JSON.parse(x));assert.deepEqual(rows.map(x=>x.status),['retrying','ok']);}
  finally{await new Promise<void>(r=>srv.close(()=>r()));rmSync(dir,{recursive:true,force:true});}
 });
+
+test('semantic verification rejection is not retried and keeps every affected question in the denominator',async()=>{
+ const dir=mkdtempSync(join(tmpdir(),'eval-semantic-'));let adds=0;
+ const srv=createServer(async(req,res)=>{for await(const _part of req){}res.setHeader('content-type','application/json');if(req.url==='/health'){res.end('{}');return;}adds++;res.statusCode=503;res.end(JSON.stringify({error:{code:'EVIDENCE_VALIDATION',message:'Semantic evidence rejected'}}));});
+ await new Promise<void>(r=>srv.listen(0,'127.0.0.1',r));
+ try{
+  const base=`http://127.0.0.1:${(srv.address() as any).port}`,dataFile=join(dir,'data.json');
+  writeFileSync(dataFile,JSON.stringify([{sample_id:'s',group_id:'s',benchmark:'synthetic',sessions:[{session_id:'session',messages:[{role:'user',content:'I like hiking.',timestamp:'2026-01-01T00:00:00Z'}]}],questions:[{qid:'a',question:'hobby?',gold_answer:'hiking',category:'test'},{qid:'b',question:'other?',gold_answer:'unknown',category:'test'}]}]));
+  await run({baseUrl:base,runDir:join(dir,'run'),runId:'semantic',dataFile,limit:0,concurrency:1,mode:'proxy',answerModel:'fixture',judgeModel:'fixture',llmBase:base,llmKey:'local',judgeBase:base,judgeKey:'local',judgeKind:'rubric',maxMessages:20,maxWords:2000,topK:100,resume:false});
+  assert.equal(adds,1);const metrics=JSON.parse(readFileSync(join(dir,'run/metrics.json'),'utf8'));assert.equal(metrics.planned,2);assert.equal(metrics.incomplete,2);assert.equal(metrics.accuracy_over_planned,0);
+ }finally{await new Promise<void>(r=>srv.close(()=>r()));rmSync(dir,{recursive:true,force:true});}
+});
