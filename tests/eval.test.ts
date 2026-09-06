@@ -24,9 +24,9 @@ test('transient add failure retries the identical request and records each attem
  finally{await new Promise<void>(r=>srv.close(()=>r()));rmSync(dir,{recursive:true,force:true});}
 });
 
-test('semantic verification rejection is not retried and keeps every affected question in the denominator',async()=>{
+for(const code of ['EVIDENCE_VALIDATION','SOURCE_OPERATION_LIMIT'])test(`${code} rejection is not retried and keeps every affected question in the denominator`,async()=>{
  const dir=mkdtempSync(join(tmpdir(),'eval-semantic-'));let adds=0;
- const srv=createServer(async(req,res)=>{for await(const _part of req){}res.setHeader('content-type','application/json');if(req.url==='/health'){res.end('{}');return;}adds++;res.statusCode=503;res.end(JSON.stringify({error:{code:'EVIDENCE_VALIDATION',message:'Semantic evidence rejected'}}));});
+ const srv=createServer(async(req,res)=>{for await(const _part of req){}res.setHeader('content-type','application/json');if(req.url==='/health'){res.end('{}');return;}adds++;res.statusCode=503;res.end(JSON.stringify({error:{code,message:'Non-transient evidence/input limit rejection'}}));});
  await new Promise<void>(r=>srv.listen(0,'127.0.0.1',r));
  try{
   const base=`http://127.0.0.1:${(srv.address() as any).port}`,dataFile=join(dir,'data.json');

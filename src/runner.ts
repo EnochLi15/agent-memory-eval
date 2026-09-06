@@ -49,7 +49,7 @@ export async function run(config:EvalConfig):Promise<void>{
         for(let attempt=0;attempt<3;attempt++){
           const start=performance.now();
           try{log('requests.jsonl',{path:'/add',body:request,attempt});await client.add(request);log('ingest.jsonl',{request_id,sample_id:sample.sample_id,status:'ok',attempt,elapsed_ms:performance.now()-start,message_count:messages.length});ingested.add(request_id);break;}
-          catch(e){const error=String(e);const transient=/HTTP (?:429|500|502|503|504)\b|fetch failed|TimeoutError/.test(error)&&!/EVIDENCE_VALIDATION|OPERATION_TARGET|OPERATION_SOURCE|OPERATION_INTENT|OPERATION_SCOPE|FACT_TARGET|FACT_SOURCE|AMBIGUOUS_OPERATION|EMBEDDING_SPACE|SOURCE_FORMAT|REQUEST_CONFLICT|RESTORE/.test(error);const retry=transient&&attempt<2;log('ingest.jsonl',{request_id,status:retry?'retrying':'failed',attempt,error,elapsed_ms:performance.now()-start});if(!retry){failed=error;break;}await new Promise(resolve=>setTimeout(resolve,1000*(attempt+1)));}
+          catch(e){const error=String(e);const transient=/HTTP (?:429|500|502|503|504)\b|fetch failed|TimeoutError/.test(error)&&!/EVIDENCE_VALIDATION|OPERATION_TARGET|OPERATION_SOURCE|OPERATION_INTENT|OPERATION_SCOPE|FACT_TARGET|FACT_SOURCE|AMBIGUOUS_OPERATION|EMBEDDING_SPACE|SOURCE_FORMAT|SOURCE_OPERATION_LIMIT|REQUEST_CONFLICT|RESTORE/.test(error);const retry=transient&&attempt<2;log('ingest.jsonl',{request_id,status:retry?'retrying':'failed',attempt,error,elapsed_ms:performance.now()-start});if(!retry){failed=error;break;}await new Promise(resolve=>setTimeout(resolve,1000*(attempt+1)));}
         }
         if(failed)break;
       }}
