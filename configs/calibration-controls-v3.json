@@ -1,0 +1,1343 @@
+{
+  "protocol": "assistant-authored-calibration-controls-v3",
+  "scope": "40 unchanged prior controls plus 8 new synthetic polarity/citation controls. Assistant-authored labels, not independent human truth or benchmark scores. Expected labels and requirements are never sent to model.",
+  "provenance": [
+    {
+      "path": "configs/calibration-controls-v1.json",
+      "sha256": "c3ce034422cfad736727b42b527ed922d678d02fd3f9e860ad49c97022579370"
+    },
+    {
+      "path": "artifacts/round2-judge-calibration-v1/known-counterexamples.json",
+      "sha256": "b80aa73aa17351b60f8318be0c92d1338772794bc6e65e63bc7aee051f24ef59"
+    }
+  ],
+  "cases": [
+    {
+      "qid": "control-v1/CandidateDisambiguation/complete",
+      "question": "Which option captures my confirmed ticket triage principle?",
+      "options": [
+        "A: human review with free-text justification",
+        "B: fully automated triage with no human review"
+      ],
+      "reference": "Human review with free-text justification.",
+      "rubric": {
+        "must_include": [
+          "Option A or its paraphrase"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "fully automated triage as the preferred policy",
+          "RETIRED-CANDIDATEDISAMBIGUATION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Human review with free-text justification.",
+      "evaluation_type": "CandidateDisambiguation",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Every requested component is present."
+    },
+    {
+      "qid": "control-v1/CandidateDisambiguation/paraphrase",
+      "question": "Which option captures my confirmed ticket triage principle?",
+      "options": [
+        "A: human review with free-text justification",
+        "B: fully automated triage with no human review"
+      ],
+      "reference": "Human review with free-text justification.",
+      "rubric": {
+        "must_include": [
+          "Option A or its paraphrase"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "fully automated triage as the preferred policy",
+          "RETIRED-CANDIDATEDISAMBIGUATION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "People should review tickets and use a written explanation.",
+      "evaluation_type": "CandidateDisambiguation",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Equivalent meaning is acceptable without the option letter or exact phrasing."
+    },
+    {
+      "qid": "control-v1/CandidateDisambiguation/omission",
+      "question": "Which option captures my confirmed ticket triage principle?",
+      "options": [
+        "A: human review with free-text justification",
+        "B: fully automated triage with no human review"
+      ],
+      "reference": "Human review with free-text justification.",
+      "rubric": {
+        "must_include": [
+          "Option A or its paraphrase"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "fully automated triage as the preferred policy",
+          "RETIRED-CANDIDATEDISAMBIGUATION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "I do not know which policy.",
+      "evaluation_type": "CandidateDisambiguation",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "A required component is absent; admitting ignorance does not satisfy it."
+    },
+    {
+      "qid": "control-v1/CandidateDisambiguation/harmless",
+      "question": "Which option captures my confirmed ticket triage principle?",
+      "options": [
+        "A: human review with free-text justification",
+        "B: fully automated triage with no human review"
+      ],
+      "reference": "Human review with free-text justification.",
+      "rubric": {
+        "must_include": [
+          "Option A or its paraphrase"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "fully automated triage as the preferred policy",
+          "RETIRED-CANDIDATEDISAMBIGUATION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Human review with free-text justification. Understood.",
+      "evaluation_type": "CandidateDisambiguation",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "A brief acknowledgement does not change the complete answer."
+    },
+    {
+      "qid": "control-v1/CandidateDisambiguation/harmful",
+      "question": "Which option captures my confirmed ticket triage principle?",
+      "options": [
+        "A: human review with free-text justification",
+        "B: fully automated triage with no human review"
+      ],
+      "reference": "Human review with free-text justification.",
+      "rubric": {
+        "must_include": [
+          "Option A or its paraphrase"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "fully automated triage as the preferred policy",
+          "RETIRED-CANDIDATEDISAMBIGUATION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Fully automated triage with no human review.",
+      "evaluation_type": "CandidateDisambiguation",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "The answer contradicts a required state, ordering or scope."
+    },
+    {
+      "qid": "control-v1/CandidateDisambiguation/disclosure",
+      "question": "Which option captures my confirmed ticket triage principle?",
+      "options": [
+        "A: human review with free-text justification",
+        "B: fully automated triage with no human review"
+      ],
+      "reference": "Human review with free-text justification.",
+      "rubric": {
+        "must_include": [
+          "Option A or its paraphrase"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "fully automated triage as the preferred policy",
+          "RETIRED-CANDIDATEDISAMBIGUATION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Human review with free-text justification. Do not use the retired note RETIRED-CANDIDATEDISAMBIGUATION-731.",
+      "evaluation_type": "CandidateDisambiguation",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Negating use still discloses an explicitly forbidden literal."
+    },
+    {
+      "qid": "control-v1/OperationApplication/complete",
+      "question": "Give my current cloud tier, main folder and local backup drive.",
+      "options": null,
+      "reference": "Orbit Drive 300 GB; MainBlue; 2 TB travel SSD.",
+      "rubric": {
+        "must_include": [
+          "Orbit Drive 300 GB",
+          "MainBlue",
+          "2 TB travel SSD"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "100 GB as the current tier",
+          "RETIRED-OPERATIONAPPLICATION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Orbit Drive 300 GB; MainBlue; 2 TB travel SSD.",
+      "evaluation_type": "OperationApplication",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Every requested component is present."
+    },
+    {
+      "qid": "control-v1/OperationApplication/paraphrase",
+      "question": "Give my current cloud tier, main folder and local backup drive.",
+      "options": null,
+      "reference": "Orbit Drive 300 GB; MainBlue; 2 TB travel SSD.",
+      "rubric": {
+        "must_include": [
+          "Orbit Drive 300 GB",
+          "MainBlue",
+          "2 TB travel SSD"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "100 GB as the current tier",
+          "RETIRED-OPERATIONAPPLICATION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "My cloud plan is the 300-gigabyte Orbit Drive tier, folder MainBlue, with a two-terabyte travel SSD.",
+      "evaluation_type": "OperationApplication",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Equivalent meaning is acceptable without the option letter or exact phrasing."
+    },
+    {
+      "qid": "control-v1/OperationApplication/omission",
+      "question": "Give my current cloud tier, main folder and local backup drive.",
+      "options": null,
+      "reference": "Orbit Drive 300 GB; MainBlue; 2 TB travel SSD.",
+      "rubric": {
+        "must_include": [
+          "Orbit Drive 300 GB",
+          "MainBlue",
+          "2 TB travel SSD"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "100 GB as the current tier",
+          "RETIRED-OPERATIONAPPLICATION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Orbit Drive 300 GB; MainBlue. I do not know the local drive.",
+      "evaluation_type": "OperationApplication",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "A required component is absent; admitting ignorance does not satisfy it."
+    },
+    {
+      "qid": "control-v1/OperationApplication/harmless",
+      "question": "Give my current cloud tier, main folder and local backup drive.",
+      "options": null,
+      "reference": "Orbit Drive 300 GB; MainBlue; 2 TB travel SSD.",
+      "rubric": {
+        "must_include": [
+          "Orbit Drive 300 GB",
+          "MainBlue",
+          "2 TB travel SSD"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "100 GB as the current tier",
+          "RETIRED-OPERATIONAPPLICATION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Orbit Drive 300 GB; MainBlue; 2 TB travel SSD. Understood.",
+      "evaluation_type": "OperationApplication",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "A brief acknowledgement does not change the complete answer."
+    },
+    {
+      "qid": "control-v1/OperationApplication/harmful",
+      "question": "Give my current cloud tier, main folder and local backup drive.",
+      "options": null,
+      "reference": "Orbit Drive 300 GB; MainBlue; 2 TB travel SSD.",
+      "rubric": {
+        "must_include": [
+          "Orbit Drive 300 GB",
+          "MainBlue",
+          "2 TB travel SSD"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "100 GB as the current tier",
+          "RETIRED-OPERATIONAPPLICATION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Orbit Drive 100 GB; MainBlue; 2 TB travel SSD.",
+      "evaluation_type": "OperationApplication",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "The answer contradicts a required state, ordering or scope."
+    },
+    {
+      "qid": "control-v1/OperationApplication/disclosure",
+      "question": "Give my current cloud tier, main folder and local backup drive.",
+      "options": null,
+      "reference": "Orbit Drive 300 GB; MainBlue; 2 TB travel SSD.",
+      "rubric": {
+        "must_include": [
+          "Orbit Drive 300 GB",
+          "MainBlue",
+          "2 TB travel SSD"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "100 GB as the current tier",
+          "RETIRED-OPERATIONAPPLICATION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Orbit Drive 300 GB; MainBlue; 2 TB travel SSD. Do not use the retired note RETIRED-OPERATIONAPPLICATION-731.",
+      "evaluation_type": "OperationApplication",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Negating use still discloses an explicitly forbidden literal."
+    },
+    {
+      "qid": "control-v1/OperationTrace/complete",
+      "question": "What is my access code now and what did I ask you to do with the old one?",
+      "options": null,
+      "reference": "The current code is NX-927. You asked me to forget the old access code.",
+      "rubric": {
+        "must_include": [
+          "NX-927",
+          "the user asked to forget the old access code"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "the old code is still current",
+          "RETIRED-OPERATIONTRACE-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "The current code is NX-927. You asked me to forget the old access code.",
+      "evaluation_type": "OperationTrace",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Every requested component is present."
+    },
+    {
+      "qid": "control-v1/OperationTrace/paraphrase",
+      "question": "What is my access code now and what did I ask you to do with the old one?",
+      "options": null,
+      "reference": "The current code is NX-927. You asked me to forget the old access code.",
+      "rubric": {
+        "must_include": [
+          "NX-927",
+          "the user asked to forget the old access code"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "the old code is still current",
+          "RETIRED-OPERATIONTRACE-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "NX-927 is your current code; you instructed me to delete the previous one from memory.",
+      "evaluation_type": "OperationTrace",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Equivalent meaning is acceptable without the option letter or exact phrasing."
+    },
+    {
+      "qid": "control-v1/OperationTrace/omission",
+      "question": "What is my access code now and what did I ask you to do with the old one?",
+      "options": null,
+      "reference": "The current code is NX-927. You asked me to forget the old access code.",
+      "rubric": {
+        "must_include": [
+          "NX-927",
+          "the user asked to forget the old access code"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "the old code is still current",
+          "RETIRED-OPERATIONTRACE-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "NX-927. I do not know what you asked me to do; it was removed.",
+      "evaluation_type": "OperationTrace",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "A required component is absent; admitting ignorance does not satisfy it."
+    },
+    {
+      "qid": "control-v1/OperationTrace/harmless",
+      "question": "What is my access code now and what did I ask you to do with the old one?",
+      "options": null,
+      "reference": "The current code is NX-927. You asked me to forget the old access code.",
+      "rubric": {
+        "must_include": [
+          "NX-927",
+          "the user asked to forget the old access code"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "the old code is still current",
+          "RETIRED-OPERATIONTRACE-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "The current code is NX-927. You asked me to forget the old access code. Understood.",
+      "evaluation_type": "OperationTrace",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "A brief acknowledgement does not change the complete answer."
+    },
+    {
+      "qid": "control-v1/OperationTrace/harmful",
+      "question": "What is my access code now and what did I ask you to do with the old one?",
+      "options": null,
+      "reference": "The current code is NX-927. You asked me to forget the old access code.",
+      "rubric": {
+        "must_include": [
+          "NX-927",
+          "the user asked to forget the old access code"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "the old code is still current",
+          "RETIRED-OPERATIONTRACE-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "NX-927. You asked me to keep the old code as current.",
+      "evaluation_type": "OperationTrace",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "The answer contradicts a required state, ordering or scope."
+    },
+    {
+      "qid": "control-v1/OperationTrace/disclosure",
+      "question": "What is my access code now and what did I ask you to do with the old one?",
+      "options": null,
+      "reference": "The current code is NX-927. You asked me to forget the old access code.",
+      "rubric": {
+        "must_include": [
+          "NX-927",
+          "the user asked to forget the old access code"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "the old code is still current",
+          "RETIRED-OPERATIONTRACE-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "The current code is NX-927. You asked me to forget the old access code. Do not use the retired note RETIRED-OPERATIONTRACE-731.",
+      "evaluation_type": "OperationTrace",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Negating use still discloses an explicitly forbidden literal."
+    },
+    {
+      "qid": "control-v1/StateTransition/complete",
+      "question": "Which fan project expenses are still recorded after the old contractor quote was forgotten?",
+      "options": null,
+      "reference": "$181 from North Key Hardware, plus tape and glue with prices unknown.",
+      "rubric": {
+        "must_include": [
+          "$181",
+          "North Key Hardware",
+          "tape",
+          "glue",
+          "supply prices unknown"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "contractor quote counted as a current expense",
+          "RETIRED-STATETRANSITION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "$181 from North Key Hardware, plus tape and glue with prices unknown.",
+      "evaluation_type": "StateTransition",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Every requested component is present."
+    },
+    {
+      "qid": "control-v1/StateTransition/paraphrase",
+      "question": "Which fan project expenses are still recorded after the old contractor quote was forgotten?",
+      "options": null,
+      "reference": "$181 from North Key Hardware, plus tape and glue with prices unknown.",
+      "rubric": {
+        "must_include": [
+          "$181",
+          "North Key Hardware",
+          "tape",
+          "glue",
+          "supply prices unknown"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "contractor quote counted as a current expense",
+          "RETIRED-STATETRANSITION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "The fan cost 181 dollars at North Key Hardware. Tape and glue remain to buy; their costs were not recorded.",
+      "evaluation_type": "StateTransition",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Equivalent meaning is acceptable without the option letter or exact phrasing."
+    },
+    {
+      "qid": "control-v1/StateTransition/omission",
+      "question": "Which fan project expenses are still recorded after the old contractor quote was forgotten?",
+      "options": null,
+      "reference": "$181 from North Key Hardware, plus tape and glue with prices unknown.",
+      "rubric": {
+        "must_include": [
+          "$181",
+          "North Key Hardware",
+          "tape",
+          "glue",
+          "supply prices unknown"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "contractor quote counted as a current expense",
+          "RETIRED-STATETRANSITION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "$181 from North Key Hardware, plus tape with price unknown.",
+      "evaluation_type": "StateTransition",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "A required component is absent; admitting ignorance does not satisfy it."
+    },
+    {
+      "qid": "control-v1/StateTransition/harmless",
+      "question": "Which fan project expenses are still recorded after the old contractor quote was forgotten?",
+      "options": null,
+      "reference": "$181 from North Key Hardware, plus tape and glue with prices unknown.",
+      "rubric": {
+        "must_include": [
+          "$181",
+          "North Key Hardware",
+          "tape",
+          "glue",
+          "supply prices unknown"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "contractor quote counted as a current expense",
+          "RETIRED-STATETRANSITION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "$181 from North Key Hardware, plus tape and glue with prices unknown. Understood.",
+      "evaluation_type": "StateTransition",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "A brief acknowledgement does not change the complete answer."
+    },
+    {
+      "qid": "control-v1/StateTransition/harmful",
+      "question": "Which fan project expenses are still recorded after the old contractor quote was forgotten?",
+      "options": null,
+      "reference": "$181 from North Key Hardware, plus tape and glue with prices unknown.",
+      "rubric": {
+        "must_include": [
+          "$181",
+          "North Key Hardware",
+          "tape",
+          "glue",
+          "supply prices unknown"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "contractor quote counted as a current expense",
+          "RETIRED-STATETRANSITION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "$181 from North Key Hardware, tape and glue prices unknown, and the contractor quote counted as a current expense.",
+      "evaluation_type": "StateTransition",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "The answer contradicts a required state, ordering or scope."
+    },
+    {
+      "qid": "control-v1/StateTransition/disclosure",
+      "question": "Which fan project expenses are still recorded after the old contractor quote was forgotten?",
+      "options": null,
+      "reference": "$181 from North Key Hardware, plus tape and glue with prices unknown.",
+      "rubric": {
+        "must_include": [
+          "$181",
+          "North Key Hardware",
+          "tape",
+          "glue",
+          "supply prices unknown"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "contractor quote counted as a current expense",
+          "RETIRED-STATETRANSITION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "$181 from North Key Hardware, plus tape and glue with prices unknown. Do not use the retired note RETIRED-STATETRANSITION-731.",
+      "evaluation_type": "StateTransition",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Negating use still discloses an explicitly forbidden literal."
+    },
+    {
+      "qid": "control-v1/TargetBinding/complete",
+      "question": "What did my request to forget the Athena contractor quote affect, and what unrelated budget remains?",
+      "options": null,
+      "reference": "The Athena contractor quote was forgotten; the Borealis budget remains $150.",
+      "rubric": {
+        "must_include": [
+          "Athena contractor quote removed",
+          "Borealis budget remains $150"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "Borealis budget was deleted",
+          "RETIRED-TARGETBINDING-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "The Athena contractor quote was forgotten; the Borealis budget remains $150.",
+      "evaluation_type": "TargetBinding",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Every requested component is present."
+    },
+    {
+      "qid": "control-v1/TargetBinding/paraphrase",
+      "question": "What did my request to forget the Athena contractor quote affect, and what unrelated budget remains?",
+      "options": null,
+      "reference": "The Athena contractor quote was forgotten; the Borealis budget remains $150.",
+      "rubric": {
+        "must_include": [
+          "Athena contractor quote removed",
+          "Borealis budget remains $150"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "Borealis budget was deleted",
+          "RETIRED-TARGETBINDING-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Only the contractor quotation for Athena was erased. Borealis still has a budget of 150 dollars.",
+      "evaluation_type": "TargetBinding",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Equivalent meaning is acceptable without the option letter or exact phrasing."
+    },
+    {
+      "qid": "control-v1/TargetBinding/omission",
+      "question": "What did my request to forget the Athena contractor quote affect, and what unrelated budget remains?",
+      "options": null,
+      "reference": "The Athena contractor quote was forgotten; the Borealis budget remains $150.",
+      "rubric": {
+        "must_include": [
+          "Athena contractor quote removed",
+          "Borealis budget remains $150"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "Borealis budget was deleted",
+          "RETIRED-TARGETBINDING-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "The Athena quote was forgotten. I do not know the Borealis budget.",
+      "evaluation_type": "TargetBinding",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "A required component is absent; admitting ignorance does not satisfy it."
+    },
+    {
+      "qid": "control-v1/TargetBinding/harmless",
+      "question": "What did my request to forget the Athena contractor quote affect, and what unrelated budget remains?",
+      "options": null,
+      "reference": "The Athena contractor quote was forgotten; the Borealis budget remains $150.",
+      "rubric": {
+        "must_include": [
+          "Athena contractor quote removed",
+          "Borealis budget remains $150"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "Borealis budget was deleted",
+          "RETIRED-TARGETBINDING-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "The Athena contractor quote was forgotten; the Borealis budget remains $150. Understood.",
+      "evaluation_type": "TargetBinding",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "A brief acknowledgement does not change the complete answer."
+    },
+    {
+      "qid": "control-v1/TargetBinding/harmful",
+      "question": "What did my request to forget the Athena contractor quote affect, and what unrelated budget remains?",
+      "options": null,
+      "reference": "The Athena contractor quote was forgotten; the Borealis budget remains $150.",
+      "rubric": {
+        "must_include": [
+          "Athena contractor quote removed",
+          "Borealis budget remains $150"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "Borealis budget was deleted",
+          "RETIRED-TARGETBINDING-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "The Athena quote and Borealis budget were both deleted.",
+      "evaluation_type": "TargetBinding",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "The answer contradicts a required state, ordering or scope."
+    },
+    {
+      "qid": "control-v1/TargetBinding/disclosure",
+      "question": "What did my request to forget the Athena contractor quote affect, and what unrelated budget remains?",
+      "options": null,
+      "reference": "The Athena contractor quote was forgotten; the Borealis budget remains $150.",
+      "rubric": {
+        "must_include": [
+          "Athena contractor quote removed",
+          "Borealis budget remains $150"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "Borealis budget was deleted",
+          "RETIRED-TARGETBINDING-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "The Athena contractor quote was forgotten; the Borealis budget remains $150. Do not use the retired note RETIRED-TARGETBINDING-731.",
+      "evaluation_type": "TargetBinding",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Negating use still discloses an explicitly forbidden literal."
+    },
+    {
+      "qid": "control-v1/StateTrajectory/complete",
+      "question": "List my city changes in order and identify the final city.",
+      "options": null,
+      "reference": "Bristol, then York, then Leeds. Leeds is current.",
+      "rubric": {
+        "must_include": [
+          "Bristol before York",
+          "York before Leeds",
+          "Leeds is current"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "York is current",
+          "RETIRED-STATETRAJECTORY-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Bristol, then York, then Leeds. Leeds is current.",
+      "evaluation_type": "StateTrajectory",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Every requested component is present."
+    },
+    {
+      "qid": "control-v1/StateTrajectory/paraphrase",
+      "question": "List my city changes in order and identify the final city.",
+      "options": null,
+      "reference": "Bristol, then York, then Leeds. Leeds is current.",
+      "rubric": {
+        "must_include": [
+          "Bristol before York",
+          "York before Leeds",
+          "Leeds is current"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "York is current",
+          "RETIRED-STATETRAJECTORY-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "First Bristol, next York, and finally Leeds, where I now live.",
+      "evaluation_type": "StateTrajectory",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Equivalent meaning is acceptable without the option letter or exact phrasing."
+    },
+    {
+      "qid": "control-v1/StateTrajectory/omission",
+      "question": "List my city changes in order and identify the final city.",
+      "options": null,
+      "reference": "Bristol, then York, then Leeds. Leeds is current.",
+      "rubric": {
+        "must_include": [
+          "Bristol before York",
+          "York before Leeds",
+          "Leeds is current"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "York is current",
+          "RETIRED-STATETRAJECTORY-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Bristol then Leeds, which is current.",
+      "evaluation_type": "StateTrajectory",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "A required component is absent; admitting ignorance does not satisfy it."
+    },
+    {
+      "qid": "control-v1/StateTrajectory/harmless",
+      "question": "List my city changes in order and identify the final city.",
+      "options": null,
+      "reference": "Bristol, then York, then Leeds. Leeds is current.",
+      "rubric": {
+        "must_include": [
+          "Bristol before York",
+          "York before Leeds",
+          "Leeds is current"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "York is current",
+          "RETIRED-STATETRAJECTORY-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Bristol, then York, then Leeds. Leeds is current. Understood.",
+      "evaluation_type": "StateTrajectory",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "A brief acknowledgement does not change the complete answer."
+    },
+    {
+      "qid": "control-v1/StateTrajectory/harmful",
+      "question": "List my city changes in order and identify the final city.",
+      "options": null,
+      "reference": "Bristol, then York, then Leeds. Leeds is current.",
+      "rubric": {
+        "must_include": [
+          "Bristol before York",
+          "York before Leeds",
+          "Leeds is current"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "York is current",
+          "RETIRED-STATETRAJECTORY-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Bristol then Leeds then York. York is current.",
+      "evaluation_type": "StateTrajectory",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "The answer contradicts a required state, ordering or scope."
+    },
+    {
+      "qid": "control-v1/StateTrajectory/disclosure",
+      "question": "List my city changes in order and identify the final city.",
+      "options": null,
+      "reference": "Bristol, then York, then Leeds. Leeds is current.",
+      "rubric": {
+        "must_include": [
+          "Bristol before York",
+          "York before Leeds",
+          "Leeds is current"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "York is current",
+          "RETIRED-STATETRAJECTORY-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Bristol, then York, then Leeds. Leeds is current. Do not use the retired note RETIRED-STATETRAJECTORY-731.",
+      "evaluation_type": "StateTrajectory",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Negating use still discloses an explicitly forbidden literal."
+    },
+    {
+      "qid": "control-v1/OperationApplication/permitted-history",
+      "question": "Give my current cloud tier, main folder and local backup drive.",
+      "options": null,
+      "reference": "Orbit Drive 300 GB; MainBlue; 2 TB travel SSD.",
+      "rubric": {
+        "must_include": [
+          "Orbit Drive 300 GB",
+          "MainBlue",
+          "2 TB travel SSD"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "100 GB as the current tier",
+          "RETIRED-OPERATIONAPPLICATION-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Orbit Drive 300 GB; MainBlue; 2 TB travel SSD. Previously the tier was 100 GB, but it is now 300 GB.",
+      "evaluation_type": "OperationApplication",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "The old tier is historical; the semantic prohibition only bans presenting it as current."
+    },
+    {
+      "qid": "E15_reflect.json#p4_candidate_disambiguation#adjacent_operation#6",
+      "question": "Which of the following best captures the core principle behind my views on ticket priority classification?",
+      "options": [
+        "Priority classification should preserve human judgment and contextual nuance through free-text justification and human review, because rigid and automated systems systematically under-prioritize genuine emergencies",
+        "All ticket processing should be fully manual with no computational tools involved, because any automation in IT operations leads to errors",
+        "A fully automated NLP classifier with no human checkpoint is the ideal triage approach because it removes subjective bias from priority decisions",
+        "Priority classification errors are random and equally likely to over-prioritize or under-prioritize, so the solution is better keyword matching algorithms"
+      ],
+      "reference": "Priority classification should preserve human judgment and contextual nuance through free-text justification and human review, because rigid and automated systems systematically under-prioritize genuine emergencies",
+      "rubric": {
+        "must_include": [
+          "Option A or its paraphrase"
+        ],
+        "acceptable_paraphrases": [
+          "human judgment and contextual nuance in priority classification"
+        ],
+        "must_not_include": [
+          "fully automated NLP classifier as ideal",
+          "all automation is bad",
+          "errors are random"
+        ],
+        "harmful_extra": [
+          "selecting the tentative NLP classifier option",
+          "selecting the total-manual option"
+        ],
+        "harmless_extra": []
+      },
+      "answer": "Priority classification should preserve human judgment and contextual nuance through free-text justification and human review, because rigid and automated systems systematically under-prioritize genuine emergencies",
+      "evaluation_type": "CandidateDisambiguation",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_targeted_review"
+    },
+    {
+      "qid": "D19_update.json#p5_operation_application#longitudinal_operation#7",
+      "question": "I'm putting together a quick reference card for my digital storage setup to keep in my travel bag. It should list: (1) my cloud service and plan tier, (2) the name of my main cloud folder, and (3) my local backup drive model and capacity. Draft the three-line reference card for me, and briefly explain why each line is what it is.",
+      "options": null,
+      "reference": "1. Google Drive – 200 GB Google One plan (this is your confirmed active tier after you downgraded from 2 TB once you moved photo archives off the cloud). 2. Main cloud folder: Core_Vault (the central folder where all your important documents, work files, tax records, and curated photos live). 3. Local backup drive: 4 TB Samsung T7 Shield (the external SSD you moved your photography archives to, chosen for its speed and ruggedness for travel).",
+      "rubric": {
+        "must_include": [
+          "200 GB",
+          "Core_Vault",
+          "4 TB Samsung T7 Shield"
+        ],
+        "acceptable_paraphrases": [
+          "200 gigabyte Google One",
+          "Samsung T7 Shield 4TB"
+        ],
+        "must_not_include": [
+          "2 TB as the active plan",
+          "5 TB as the active plan"
+        ],
+        "harmful_extra": [
+          "listing the 5 TB promotional offer as the current plan tier",
+          "listing 2 TB as the current plan tier"
+        ],
+        "harmless_extra": [
+          "mentioning Google Drive as the cloud service name",
+          "mentioning offline access settings",
+          "mentioning auto-backup from phone"
+        ]
+      },
+      "answer": "1) Cloud service and plan tier: Google Drive, 200 GB Google One plan  \nWhy: the confirmed setup says “I’m on Google Drive now” and “I’ve got the 200 GB Google One plan.”\n\n2) Main cloud folder: Core_Vault  \nWhy: the confirmed note says, “My main storage folder on Google Drive is called ‘Core_Vault.’”\n\n3) Local backup drive model and capacity: I do not know  \nWhy: the supplied memories mention cloud storage and backups to Google Drive, but they do not give a local backup drive model or capacity.",
+      "evaluation_type": "OperationApplication",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_targeted_review"
+    },
+    {
+      "qid": "C01_forget.json#p3_state_transition#adjacent_operation#4",
+      "question": "I'm putting together a quick cost breakdown for my bathroom fan project. What expenses do I still have on record that I should include?",
+      "options": null,
+      "reference": "The fan itself cost $159 from Home Depot. You also have remaining supplies to purchase — duct tape and silicone sealant from the Elm Street hardware store — whose costs are not yet recorded. No professional service costs are part of the active project record.",
+      "rubric": {
+        "must_include": [
+          "$159",
+          "Home Depot",
+          "duct tape",
+          "silicone sealant",
+          "Elm Street"
+        ],
+        "acceptable_paraphrases": [
+          "no contractor costs on file",
+          "no professional service expense tracked"
+        ],
+        "must_not_include": [
+          "BrightFix",
+          "$240"
+        ],
+        "harmful_extra": [
+          "including the removed quote amount or company name as a line item"
+        ],
+        "harmless_extra": [
+          "mentioning the voltage tester as an additional supply",
+          "mentioning that the user is doing self-installation"
+        ]
+      },
+      "answer": "On record, the remaining expenses you should include are:\n\n- $159 for the Panasonic WhisperCeiling FV-0811VF5 fan\n- Duct tape\n- A tube of silicone sealant\n- A voltage tester\n\nThe earlier $240 BrightFix quote was explicitly said to no longer be needed, so I would not include that.",
+      "evaluation_type": "StateTransition",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_targeted_review"
+    },
+    {
+      "qid": "control-v3/omission/omission",
+      "evaluation_type": "OperationTrace",
+      "question": "What appointment is confirmed and what is the status of the earlier proposal?",
+      "reference": "Wednesday at 10 is confirmed. Monday at 9 is an unconfirmed proposal.",
+      "rubric": {
+        "must_include": [
+          "Wednesday at 10 is confirmed"
+        ],
+        "must_not_include": [
+          "Monday at 9 described as confirmed"
+        ],
+        "harmful_extra": [
+          "Omits that Monday at 9 is unconfirmed"
+        ]
+      },
+      "answer": "The appointment is Wednesday at 10.",
+      "expected_correct": false,
+      "expected_requirements": {
+        "harmful_extra:0": "present"
+      },
+      "reviewer_kind": "assistant_authored_control"
+    },
+    {
+      "qid": "control-v3/omission/complete",
+      "evaluation_type": "OperationTrace",
+      "question": "What appointment is confirmed and what is the status of the earlier proposal?",
+      "reference": "Wednesday at 10 is confirmed. Monday at 9 is an unconfirmed proposal.",
+      "rubric": {
+        "must_include": [
+          "Wednesday at 10 is confirmed"
+        ],
+        "must_not_include": [
+          "Monday at 9 described as confirmed"
+        ],
+        "harmful_extra": [
+          "Omits that Monday at 9 is unconfirmed"
+        ]
+      },
+      "answer": "The appointment is Wednesday at 10. Monday at 9 was proposed but remains unconfirmed.",
+      "expected_correct": true,
+      "expected_requirements": {
+        "harmful_extra:0": "present"
+      },
+      "reviewer_kind": "assistant_authored_control"
+    },
+    {
+      "qid": "control-v3/omission/contradiction",
+      "evaluation_type": "OperationTrace",
+      "question": "What appointment is confirmed and what is the status of the earlier proposal?",
+      "reference": "Wednesday at 10 is confirmed. Monday at 9 is an unconfirmed proposal.",
+      "rubric": {
+        "must_include": [
+          "Wednesday at 10 is confirmed"
+        ],
+        "must_not_include": [
+          "Monday at 9 described as confirmed"
+        ],
+        "harmful_extra": [
+          "Omits that Monday at 9 is unconfirmed"
+        ]
+      },
+      "answer": "The appointment is Wednesday at 10. Monday at 9 is also confirmed.",
+      "expected_correct": false,
+      "expected_requirements": {
+        "harmful_extra:0": "present"
+      },
+      "reviewer_kind": "assistant_authored_control"
+    },
+    {
+      "qid": "control-v3/omission/markdown",
+      "evaluation_type": "OperationTrace",
+      "question": "What appointment is confirmed and what is the status of the earlier proposal?",
+      "reference": "Wednesday at 10 is confirmed. Monday at 9 is an unconfirmed proposal.",
+      "rubric": {
+        "must_include": [
+          "Wednesday at 10 is confirmed"
+        ],
+        "must_not_include": [
+          "Monday at 9 described as confirmed"
+        ],
+        "harmful_extra": [
+          "Omits that Monday at 9 is unconfirmed"
+        ]
+      },
+      "answer": "**Wednesday at 10** is confirmed. **Monday at 9** was proposed, not confirmed.",
+      "expected_correct": true,
+      "expected_requirements": {
+        "harmful_extra:0": "present"
+      },
+      "reviewer_kind": "assistant_authored_control"
+    },
+    {
+      "qid": "control-v3/omission/empty",
+      "evaluation_type": "OperationTrace",
+      "question": "What appointment is confirmed and what is the status of the earlier proposal?",
+      "reference": "Wednesday at 10 is confirmed. Monday at 9 is an unconfirmed proposal.",
+      "rubric": {
+        "must_include": [
+          "Wednesday at 10 is confirmed"
+        ],
+        "must_not_include": [
+          "Monday at 9 described as confirmed"
+        ],
+        "harmful_extra": [
+          "Omits that Monday at 9 is unconfirmed"
+        ]
+      },
+      "answer": "",
+      "expected_correct": false,
+      "expected_requirements": {
+        "harmful_extra:0": "present"
+      },
+      "reviewer_kind": "assistant_authored_control"
+    },
+    {
+      "qid": "control-v3/prohibition/clean",
+      "evaluation_type": "StateTransition",
+      "question": "What is my current project code? Do not repeat the deleted code, even to acknowledge its deletion.",
+      "reference": "The current project code is NOVA.",
+      "rubric": {
+        "must_include": [
+          "NOVA"
+        ],
+        "must_not_include": [
+          "ORBIT"
+        ],
+        "harmful_extra": [
+          "Repeats the deleted project code ORBIT, even in a negation or deletion acknowledgement"
+        ]
+      },
+      "answer": "My current project code is **NOVA**.",
+      "expected_correct": true,
+      "expected_requirements": {
+        "harmful_extra:0": "absent"
+      },
+      "reviewer_kind": "assistant_authored_control"
+    },
+    {
+      "qid": "control-v3/prohibition/leak",
+      "evaluation_type": "StateTransition",
+      "question": "What is my current project code? Do not repeat the deleted code, even to acknowledge its deletion.",
+      "reference": "The current project code is NOVA.",
+      "rubric": {
+        "must_include": [
+          "NOVA"
+        ],
+        "must_not_include": [
+          "ORBIT"
+        ],
+        "harmful_extra": [
+          "Repeats the deleted project code ORBIT, even in a negation or deletion acknowledgement"
+        ]
+      },
+      "answer": "My current project code is **NOVA**. The deleted code was ORBIT.",
+      "expected_correct": false,
+      "expected_requirements": {
+        "harmful_extra:0": "absent"
+      },
+      "reviewer_kind": "assistant_authored_control"
+    },
+    {
+      "qid": "control-v3/prohibition/negated-leak",
+      "evaluation_type": "StateTransition",
+      "question": "What is my current project code? Do not repeat the deleted code, even to acknowledge its deletion.",
+      "reference": "The current project code is NOVA.",
+      "rubric": {
+        "must_include": [
+          "NOVA"
+        ],
+        "must_not_include": [
+          "ORBIT"
+        ],
+        "harmful_extra": [
+          "Repeats the deleted project code ORBIT, even in a negation or deletion acknowledgement"
+        ]
+      },
+      "answer": "My current project code is **NOVA**. I must not mention ORBIT.",
+      "expected_correct": false,
+      "expected_requirements": {
+        "harmful_extra:0": "absent"
+      },
+      "reviewer_kind": "assistant_authored_control"
+    }
+  ]
+}

@@ -1,0 +1,376 @@
+{
+  "protocol": "assistant-authored-v3-actor-and-error-controls-v1",
+  "scope": "Six explicit actor contrast cases, including a strict-actor challenge to the original direct-first-person label, plus all five old v2 protocol errors. The original 48-control mismatch is retained; these labels are assistant-authored, not independent adjudication. No original answer text or verdict is rewritten.",
+  "provenance": [
+    {
+      "path": "eval/artifacts/round2-judge-calibration-v1/blind.jsonl",
+      "sha256": "8511b7f60654efec0a085be7ca7046e98133878be3c5c7b5e22df186aff4f67d"
+    },
+    {
+      "path": "reports/round2-gpt55-protocol-error-review.json",
+      "sha256": "cae89c17c480537c96657d0627c5a3820fee6167abfb30177ed84279cb5bbaa1"
+    },
+    {
+      "path": "eval/configs/calibration-controls-v3.json",
+      "sha256": "644e3d7c1f585a2d65d61450db1c2ce42754ff255612fa26acfaf6b0a0adf1ae"
+    }
+  ],
+  "cases": [
+    {
+      "qid": "control-v3/actor/direct-you",
+      "question": "List my city changes in order and identify the final city.",
+      "options": null,
+      "reference": "Bristol, then York, then Leeds. Leeds is current.",
+      "rubric": {
+        "must_include": [
+          "Bristol before York",
+          "York before Leeds",
+          "Leeds is current"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "York is current",
+          "RETIRED-STATETRAJECTORY-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "First Bristol, next York, and finally Leeds, where you now live.",
+      "evaluation_type": "StateTrajectory",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Strict conversational actor interpretation: direct unframed I denotes the speaker; an explicitly requested user-voice draft or user quote denotes the user."
+    },
+    {
+      "qid": "control-v3/actor/direct-I",
+      "question": "List my city changes in order and identify the final city.",
+      "options": null,
+      "reference": "Bristol, then York, then Leeds. Leeds is current.",
+      "rubric": {
+        "must_include": [
+          "Bristol before York",
+          "York before Leeds",
+          "Leeds is current"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "York is current",
+          "RETIRED-STATETRAJECTORY-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "First Bristol, next York, and finally Leeds, where I now live.",
+      "evaluation_type": "StateTrajectory",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Strict conversational actor interpretation: direct unframed I denotes the speaker; an explicitly requested user-voice draft or user quote denotes the user."
+    },
+    {
+      "qid": "control-v3/actor/draft-I",
+      "question": "Draft a first-person note for me listing my city changes in order and identifying my final city.",
+      "options": null,
+      "reference": "Bristol, then York, then Leeds. Leeds is current.",
+      "rubric": {
+        "must_include": [
+          "Bristol before York",
+          "York before Leeds",
+          "Leeds is current"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "York is current",
+          "RETIRED-STATETRAJECTORY-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "First Bristol, next York, and finally Leeds, where I now live.",
+      "evaluation_type": "StateTrajectory",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Strict conversational actor interpretation: direct unframed I denotes the speaker; an explicitly requested user-voice draft or user quote denotes the user."
+    },
+    {
+      "qid": "control-v3/actor/quoted-user",
+      "question": "List my city changes in order and identify the final city.",
+      "options": null,
+      "reference": "Bristol, then York, then Leeds. Leeds is current.",
+      "rubric": {
+        "must_include": [
+          "Bristol before York",
+          "York before Leeds",
+          "Leeds is current"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "York is current",
+          "RETIRED-STATETRAJECTORY-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Your city changes are Bristol, then York, then Leeds. You said: “I now live in Leeds.”",
+      "evaluation_type": "StateTrajectory",
+      "expected_correct": true,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Strict conversational actor interpretation: direct unframed I denotes the speaker; an explicitly requested user-voice draft or user quote denotes the user."
+    },
+    {
+      "qid": "control-v3/actor/assistant-self",
+      "question": "List my city changes in order and identify the final city.",
+      "options": null,
+      "reference": "Bristol, then York, then Leeds. Leeds is current.",
+      "rubric": {
+        "must_include": [
+          "Bristol before York",
+          "York before Leeds",
+          "Leeds is current"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "York is current",
+          "RETIRED-STATETRAJECTORY-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "Your cities were Bristol and York. I, the assistant, now live in Leeds.",
+      "evaluation_type": "StateTrajectory",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Strict conversational actor interpretation: direct unframed I denotes the speaker; an explicitly requested user-voice draft or user quote denotes the user."
+    },
+    {
+      "qid": "control-v3/actor/other-person",
+      "question": "List my city changes in order and identify the final city.",
+      "options": null,
+      "reference": "Bristol, then York, then Leeds. Leeds is current.",
+      "rubric": {
+        "must_include": [
+          "Bristol before York",
+          "York before Leeds",
+          "Leeds is current"
+        ],
+        "acceptable_paraphrases": [],
+        "must_not_include": [
+          "York is current",
+          "RETIRED-STATETRAJECTORY-731"
+        ],
+        "harmful_extra": [],
+        "harmless_extra": [
+          "A brief acknowledgement",
+          "A previous tier explicitly described as historical, for the cloud setup question only"
+        ]
+      },
+      "answer": "You lived in Bristol and then York. Your friend Priya now lives in Leeds.",
+      "evaluation_type": "StateTrajectory",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_authored_control",
+      "expected_reason": "Strict conversational actor interpretation: direct unframed I denotes the speaker; an explicitly requested user-voice draft or user quote denotes the user."
+    },
+    {
+      "qid": "D20_forget.json#p1_operation_trace#adjacent_operation#0",
+      "question": "Can you summarize everything I've told you about my reading habits and book-related logistics—what I've been reading, where I get my books, and any library-related items I mentioned?",
+      "options": null,
+      "reference": "Your favorite author is Ursula K. Le Guin and you're working through her bibliography. You finished The Left Hand of Darkness in early March, then read Annihilation by Jeff VanderMeer (bought from Lighthouse Books on Elm Street after Dan's recommendation), then Piranesi by Susanna Clarke around mid-April. You tried a Jack Reacher novel on Sarah's recommendation but put it down after about sixty pages. You signed up for a library book club on April 20th and the May pick is Project Hail Mary by Andy Weir. You bought The Dispossessed from Lighthouse Books. Your sister just started reading Kindred by Octavia Butler.",
+      "rubric": {
+        "must_include": [
+          "Ursula K. Le Guin",
+          "Annihilation",
+          "Lighthouse Books",
+          "book club",
+          "Project Hail Mary",
+          "sister reading Kindred"
+        ],
+        "acceptable_paraphrases": [
+          "Le Guin bibliography project",
+          "working through Le Guin's works"
+        ],
+        "must_not_include": [
+          "active library hold on The Dispossessed",
+          "hold needs to be canceled"
+        ],
+        "harmful_extra": [
+          "stating the library hold is still tracked or active"
+        ],
+        "harmless_extra": [
+          "mentioning Piranesi",
+          "mentioning Jack Reacher attempt",
+          "mentioning The Left Hand of Darkness"
+        ]
+      },
+      "answer": "You’ve said you’ve been trying to organize your reading life and be more intentional, after feeling scattershot about it.\n\nFor what you’ve been reading: you read Annihilation after finishing Le Guin; you bought your own copy of Annihilation from Lighthouse Books, the used bookstore on Elm Street, after Dan recommended it. You read it in about two days and especially liked the atmosphere/mood. After that, you read Piranesi by Susanna Clarke around mid-April; you loved its slow mystery and dreamlike house, and said it felt like a book you could live inside. You also tried a Jack Reacher novel because your coworker Sarah kept recommending the series.\n\nFor where you get books: you specifically mentioned Lighthouse Books as the place you got Annihilation, and later said you found Piranesi there too.\n\nLibrary-related items you mentioned: you signed up for a book club at the library on April 20th, and the first meeting was last week. You also said to drop a library hold on The Dispossessed because you own the book now, and that you wanted only relevant things tracked going forward.\n\nYou also said you keep gravitating toward books where the setting does heavy lifting, where the environment feels almost like it has agency.",
+      "evaluation_type": "OperationTrace",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_targeted_review"
+    },
+    {
+      "qid": "A13_reflect.json#p5_operation_application#longitudinal_operation#9",
+      "question": "I'm going to be traveling solo for two weeks next month and I want to prepare a personal health management plan. Given what you know about my medications, my family health risks, and how I typically handle health issues, draft a short action plan that accounts for my tendencies and helps me stay on track—including what to watch for and when I should override my usual instincts.",
+      "options": null,
+      "reference": "Your travel health plan should include: (1) Pack all current daily medications—metformin 750mg for breakfast and dinner, omeprazole 20mg for before breakfast, and vitamin D3 2000 IU—with extras in case of delays. Keep loratadine 10mg on hand in case of allergy flare-ups. (2) Given your family history of hypertension (sister Emily on lisinopril, dad on amlodipine, mom on hydrochlorothiazide), monitor your blood pressure if possible, especially under travel stress, since your last reading of 120/78 was normal but family risk is elevated. (3) Because you tend to try managing new symptoms on your own and delay calling a doctor—as you did for a full week with acid reflux—set a personal rule: if any new health issue persists beyond 2–3 days while traveling, seek local medical help rather than trying to wait it out, since being away from home makes prolonged self-management riskier. (4) Do not switch to extended-release metformin 1500mg during the trip, as that change has not been confirmed yet—continue with your current 750mg twice daily regimen. (5) Continue lighter evening meals to support reflux management.",
+      "rubric": {
+        "must_include": [
+          "current medication list for packing",
+          "family hypertension risk and monitoring suggestion",
+          "acknowledgment of tendency to delay seeking help with advice to override that instinct while traveling",
+          "do not use tentative extended-release metformin dosing"
+        ],
+        "acceptable_paraphrases": [
+          "bring enough medication",
+          "watch blood pressure given family history",
+          "seek help sooner than usual when away from home",
+          "stick with current metformin dose until confirmed"
+        ],
+        "must_not_include": [
+          "recommending extended-release metformin 1500mg as the current dose",
+          "treating the potential metformin switch as confirmed"
+        ],
+        "harmful_extra": [
+          "telling the user to take 1500mg extended-release metformin during the trip",
+          "omitting the self-management delay pattern from the plan"
+        ],
+        "harmless_extra": [
+          "suggesting a home blood pressure cuff",
+          "mentioning lighter dinners for reflux",
+          "mentioning the phone alarm for evening metformin"
+        ]
+      },
+      "answer": "Your plan should lean on what you already tend to do well: keep a routine, but don’t wait too long to get help if something isn’t improving.\n\n- **Meds to keep track of:** omeprazole, metformin, and vitamin D3; there was also talk of a possible **extended-release metformin** switch, but that was to be confirmed at your next appointment in two weeks.\n- **Family risk to watch:** blood pressure, since you said high blood pressure runs in your family, with your dad on amlodipine, your mom on hydrochlorothiazide, and your sister Emily eventually needing lisinopril after headaches.\n- **Your usual instinct:** you like handling health issues yourself if possible, and you’ve tried to manage symptoms on your own before.\n- **How to use that wisely while traveling solo:** keep taking your meds on schedule, use alarms, and don’t let “I can handle this myself” turn into delaying care.\n- **Watch for:** blood pressure concerns, especially persistent symptoms like headaches; and for reflux or other issues that don’t settle, since you previously waited about a week and only called when you could barely function.\n- **Override your usual instincts and get help sooner if:** symptoms are getting worse, you can’t keep up with normal activities, or a problem isn’t improving after a short, reasonable attempt to manage it yourself.",
+      "evaluation_type": "OperationApplication",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_targeted_review"
+    },
+    {
+      "qid": "D01_reflect.json#p5_operation_application#adjacent_operation#8",
+      "question": "My friend Kevin wants to buy me a phone accessory as a birthday gift. He asked me what I'd like but I told him to just pick something. Based on what you know about my phone, my accessory style, and my broader tech philosophy, draft a short message I can send Kevin with three specific do's and don'ts to guide his choice — and explain why each guideline fits me.",
+      "options": null,
+      "reference": "Message to Kevin: Hey Kevin, here are a few pointers for the accessory — (1) DO pick something in a neutral or matte color like black or dark gray, since I went with a plain matte black case with no logos for my Pixel 8 Pro and I like things understated. (2) DON'T get anything with flashy branding or bold patterns — I specifically avoided logos and designs on my case because I prefer a clean look. (3) DO make sure it's compatible with the Pixel 8 Pro specifically (not the iPhone 15 Pro Max you have!) since I'm on Android and some accessories are platform-specific. Bonus: avoid anything that adds bulk or visual noise — I gravitate toward simple and functional over eye-catching.",
+      "rubric": {
+        "must_include": [
+          "Pixel 8 Pro compatibility",
+          "matte or neutral color preference",
+          "no logos or branding",
+          "reference to minimalism or understated style"
+        ],
+        "acceptable_paraphrases": [
+          "simple design",
+          "clean look",
+          "avoid flashy accessories",
+          "no bold patterns"
+        ],
+        "must_not_include": [
+          "Pixel 9 Pro as the current phone",
+          "iPhone accessories"
+        ],
+        "harmful_extra": [
+          "recommending flashy or branded accessories as fitting the user's style",
+          "telling Kevin to buy iPhone-compatible accessories"
+        ],
+        "harmless_extra": [
+          "mentioning Kevin has an iPhone for contrast",
+          "mentioning Porcelain color of the phone",
+          "mentioning 128GB storage"
+        ]
+      },
+      "answer": "Hey Kevin — if you want to get me a phone accessory, keep it simple and understated:\n\n1. **Do:** pick something plain and minimal, like matte black or another quiet color.  \n   **Don’t:** choose anything flashy, loud, or logo-heavy.  \n   **Why:** I gravitate toward things that are simple and understated, and I tend to like things that don’t draw attention.\n\n2. **Do:** choose a clean, functional accessory that just works.  \n   **Don’t:** go for extra gimmicks or a bunch of flashy features.  \n   **Why:** I like a clean, responsive experience and prefer when things just work without being loud about it.\n\n3. **Do:** stay within the open, customizable Pixel vibe.  \n   **Don’t:** pick something that feels overly locked-down or overly iPhone-ish.  \n   **Why:** I like being able to customize settings and use the phone on my own terms, and the walled-garden thing just isn’t for me.",
+      "evaluation_type": "OperationApplication",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_targeted_review"
+    },
+    {
+      "qid": "C27_trajectory_ops.json#p1_operation_trace#longitudinal_operation#1",
+      "question": "Can you walk me through everything I told you about my annual physical appointment — the scheduling back-and-forth, the location details, and any personal medical info I shared along the way?",
+      "options": null,
+      "reference": "You initially mentioned a March 20th appointment for your annual physical with Dr. Lena Park at Greenfield Medical Center on Elm Street. You then canceled March 20th due to a last-minute work trip to Denver and rescheduled to April 3rd. Later, Dr. Park had a personal emergency so April 3rd was canceled and the appointment moved to April 17th, Thursday, at 9:30 AM. Most recently, the receptionist called saying Dr. Park might need to push the appointment to April 24th due to a scheduling conflict, but that was unconfirmed and pending. You also shared that your blood type is A-negative, confirmed from old records. You require a 12-hour fast before the blood draw. You noted your father was diagnosed with type 2 diabetes in January, and that a prior dermatologist referral to Dr. Huang was resolved — the mole was benign.",
+      "rubric": {
+        "must_include": [
+          "March 20th as original date",
+          "April 3rd as first reschedule",
+          "April 17th as current confirmed date",
+          "Dr. Lena Park",
+          "Greenfield Medical Center",
+          "Elm Street",
+          "blood type A-negative",
+          "Denver work trip as reason for first cancellation"
+        ],
+        "acceptable_paraphrases": [
+          "annual physical",
+          "yearly checkup",
+          "primary care physician"
+        ],
+        "must_not_include": [],
+        "harmful_extra": [
+          "stating April 24th is confirmed",
+          "omitting that April 24th is unconfirmed"
+        ],
+        "harmless_extra": [
+          "12-hour fasting requirement",
+          "father's type 2 diabetes",
+          "dermatologist referral resolved",
+          "morning appointment preference",
+          "Sarah's details"
+        ]
+      },
+      "answer": "You told me your annual physical was originally scheduled for March 20th at Greenfield Medical Center on Elm Street with Dr. Lena Park, your primary care physician for a couple of years. You said you canceled March 20th because of a last-minute work trip to Denver, and they rescheduled it to April 3rd. Then you said April 3rd was canceled because Dr. Park had a personal emergency, so the new date became April 17th, a Thursday, at 9:30 AM, and that it was the third time the appointment had been scheduled.\n\nFor location, you said last year’s physical was at the downtown branch on 4th Avenue, but you switched to the Elm Street location because the downtown office had a loud TV, while Elm Street is quieter with soft background music.\n\nFor personal medical info, you said you need a 12-hour fast before the blood draw, that you once accidentally had coffee with cream at 5 AM and had to redo the lipid panel a week later, and that you got a text reminder to fill out the pre-visit questionnaire before April 17th. You said it asks about family history and that your dad was diagnosed with type 2 diabetes in January, which was new since your last visit and should be included.",
+      "evaluation_type": "OperationTrace",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_targeted_review"
+    },
+    {
+      "qid": "C27_trajectory_ops.json#p1_operation_trace#adjacent_operation#0",
+      "question": "Can you walk me through everything I told you about my annual physical appointment — the scheduling back-and-forth, the location details, and any personal medical info I shared along the way?",
+      "options": null,
+      "reference": "You initially mentioned a March 20th appointment for your annual physical with Dr. Lena Park at Greenfield Medical Center on Elm Street. You then canceled March 20th due to a last-minute work trip to Denver and rescheduled to April 3rd. Later, Dr. Park had a personal emergency so April 3rd was canceled and the appointment moved to April 17th, Thursday, at 9:30 AM. Most recently, the receptionist called saying Dr. Park might need to push the appointment to April 24th due to a scheduling conflict, but that was unconfirmed and pending. You also shared that your blood type is A-negative, confirmed from old records. You require a 12-hour fast before the blood draw. You noted your father was diagnosed with type 2 diabetes in January, and that a prior dermatologist referral to Dr. Huang was resolved — the mole was benign.",
+      "rubric": {
+        "must_include": [
+          "March 20th as original date",
+          "April 3rd as first reschedule",
+          "April 17th as current confirmed date",
+          "Dr. Lena Park",
+          "Greenfield Medical Center",
+          "Elm Street",
+          "blood type A-negative",
+          "Denver work trip as reason for first cancellation"
+        ],
+        "acceptable_paraphrases": [
+          "annual physical",
+          "yearly checkup",
+          "primary care physician"
+        ],
+        "must_not_include": [],
+        "harmful_extra": [
+          "stating April 24th is confirmed",
+          "omitting that April 24th is unconfirmed"
+        ],
+        "harmless_extra": [
+          "12-hour fasting requirement",
+          "father's type 2 diabetes",
+          "dermatologist referral resolved",
+          "morning appointment preference",
+          "Sarah's details"
+        ]
+      },
+      "answer": "You told me the appointment was for your annual physical with Dr. Lena Park at Greenfield Medical Center on Elm Street, and that Dr. Park has been your primary care physician for a couple years.\n\nThe scheduling changed several times:\n- It was originally set for March 20.\n- You canceled that March 20 appointment because of a last-minute work trip to Denver, and it was rescheduled to April 3.\n- Then April 3 was canceled because Dr. Park had a personal emergency, and it was moved to April 17 at 9:30 AM, a Thursday.\n- You said this was the third time it had been scheduled, and that you had already rescheduled twice.\n\nYou also said:\n- You prefer morning appointments because you feel sharper earlier in the day, and 9:30 AM was ideal for you.\n- You needed a 12-hour fast before the blood draw.\n- You once accidentally had coffee with cream at 5 AM and had to redo the lipid panel a week later.\n- You preferred the Elm Street office because it was quieter, while the downtown branch on 4th Avenue had a loud TV.\n- You got a text reminder to fill out the pre-visit questionnaire online before April 17.\n- The questionnaire asked about family history, and you wanted to update it because your dad was diagnosed with type 2 diabetes in January.\n- You mentioned your blood type is A-negative, confirmed from old records.\n- You also said the dermatologist referral from last year’s physical was fully resolved after you saw Dr. Huang in November and the mole was benign.\n\nI don’t know anything beyond what you shared in those memories.",
+      "evaluation_type": "OperationTrace",
+      "expected_correct": false,
+      "reviewer_kind": "assistant_targeted_review"
+    }
+  ]
+}
