@@ -6,6 +6,8 @@ Node 24.18.0、Python 3。`npm ci && npm run build && npm test` 执行Node与Pyt
 
 LoCoMo refined Judge 原脚本固定拷贝在 `python/upstream/`，桥接器不改判分 prompt。Python 依赖见 `python/requirements.txt`。本地量化 Qwen3-14B 可用独立 `scripts/ollama-judge-server.py` 将官方请求的关闭 thinking 选项映射到 Ollama 原生接口；该组件只属于评测器，不添加服务 API。量化权重、上下文长度及本地转换均须记录，不能冒充正式未量化平台成绩。
 
+本地判分适配器保持 Qwen 驻留，避免较长灌入期间闲置卸载后，与 embedding 重新加载发生资源争用。启动评测前先验证一次 Judge 和 embedding 请求，并确认 `/api/ps` 同时列出两者；端口可连接不代表模型已就绪。评测结束且没有其他任务使用该模型时，执行 `ollama stop qwen3:14b` 释放驻留。驻留策略不改变权重、提示词、上下文8192、关闭thinking或输出上限512；中途故障仍保留原终态，禁止重判补分。
+
 默认代理评测使用配置的 Answer/Judge。`--mode competition-reproduction` 仅在平台配置明确确认后启用。缺少官方 500+500 选择器、Answer 配置和 MemOps 二值映射时，公开集复现一律单独标注。Judge 失败算未判定；报告保留完整计划分母。已有运行只能显式 `--resume`，改变关键配置不能接着写入同一结果。
 
 `python/prepare_judge_calibration.py` 接收 `--primary`、`--predictions`、`--upstream` JSONL和新的 `--output` 目录，核对两套Judge使用完全相同的保存答案，选取全部分歧及六类题型中正/负判定一致的分层样本。`blind.jsonl` 不含原判分，原判分保存在独立文件；`reviews-pending.jsonl` 全部为空待复核，不能当作人工标签。它只生成校准材料，不修改原分数、不调用记忆服务、不把一致判定当作真值。
