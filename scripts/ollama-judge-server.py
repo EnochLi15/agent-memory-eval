@@ -5,7 +5,10 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         if self.path != '/v1/chat/completions': self.send_error(404); return
         request=json.loads(self.rfile.read(int(self.headers['Content-Length'])))
-        payload={'model':request['model'],'messages':request['messages'],'stream':False,'think':False,'keep_alive':'10m','options':{'temperature':request.get('temperature',0),'num_ctx':8192,'num_predict':512}}
+        # Long memory ingestion may be idle for more than ten minutes. Keep the
+        # judge resident until explicit teardown so the next verdict cannot stall
+        # behind embedding eviction while loading the large model again.
+        payload={'model':request['model'],'messages':request['messages'],'stream':False,'think':False,'keep_alive':-1,'options':{'temperature':request.get('temperature',0),'num_ctx':8192,'num_predict':512}}
         try:
             req=urllib.request.Request(os.getenv('OLLAMA_URL','http://127.0.0.1:11434')+'/api/chat',json.dumps(payload).encode(),{'Content-Type':'application/json'})
             with urllib.request.urlopen(req,timeout=170) as r: result=json.load(r)
