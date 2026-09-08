@@ -6,6 +6,8 @@ Node 24.18.0、Python 3。`npm ci && npm run build && npm test` 执行Node与Pyt
 
 LoCoMo refined Judge 原脚本固定拷贝在 `python/upstream/`，桥接器不改判分 prompt。Python 依赖见 `python/requirements.txt`。本地量化 Qwen3-14B 可用独立 `scripts/ollama-judge-server.py` 将官方请求的关闭 thinking 选项映射到 Ollama 原生接口；该组件只属于评测器，不添加服务 API。量化权重、上下文长度及本地转换均须记录，不能冒充正式未量化平台成绩。
 
+总控 `scripts/run-experiment.py --upstream-judge` 现在自行启动本批次独占的本地 Judge（系统分配端口），先用上游 bridge 完成模型预检，再开始灌入。Judge 被列为必需子进程，运行中退出会记录退出码并停止本批次；结束时仅清理自己拥有的进程。无需再手动启动固定 8766 端口的后台适配器。端点、预检日志和进程信息位于对应 campaign 的 `*-judge-ready.json`、`*-judge-preflight.log`、`*-runtime.json`。
+
 本地判分适配器保持 Qwen 驻留，避免较长灌入期间闲置卸载后，与 embedding 重新加载发生资源争用。启动评测前先验证一次 Judge 和 embedding 请求，并确认 `/api/ps` 同时列出两者；端口可连接不代表模型已就绪。评测结束且没有其他任务使用该模型时，执行 `ollama stop qwen3:14b` 释放驻留。驻留策略不改变权重、提示词、上下文8192、关闭thinking或输出上限512；中途故障仍保留原终态，禁止重判补分。
 
 默认代理评测使用配置的 Answer/Judge。`--mode competition-reproduction` 仅在平台配置明确确认后启用。缺少官方 500+500 选择器、Answer 配置和 MemOps 二值映射时，公开集复现一律单独标注。Judge 失败算未判定；报告保留完整计划分母。已有运行只能显式 `--resume`，改变关键配置不能接着写入同一结果。
